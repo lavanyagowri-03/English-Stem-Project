@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<title>Degrees of Comparison Quiz</title>
+
+<style>
+
+body{
+margin:0;
+text-align:center;
+font-family:Segoe UI;
+}
+
+/* FRONT PAGE */
+
+.home{
+height:100vh;
+background:linear-gradient(135deg,#4c1d95,#7c3aed,#a78bfa);
+color:white;
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+padding:40px;
+}
+
+.title{
+font-size:60px;
+font-weight:bold;
+margin-bottom:20px;
+}
+
+.intro{
+max-width:800px;
+font-size:20px;
+background:rgba(255,255,255,0.2);
+padding:25px;
+border-radius:15px;
+margin-bottom:40px;
+}
+
+.levelContainer{
+display:flex;
+gap:30px;
+}
+
+.levelCard{
+width:200px;
+height:140px;
+border-radius:15px;
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:24px;
+font-weight:bold;
+cursor:pointer;
+transition:0.3s;
+}
+
+.levelCard:hover{
+transform:scale(1.1);
+}
+
+.easy{background:#ffd6e7;color:#4a004a;}
+.medium{background:#2563eb;}
+.hard{background:#ea580c;}
+
+/* THEMES */
+
+.easyTheme{
+background:#ffd6e7;
+height:100vh;
+padding-top:40px;
+font-family:"Comic Sans MS";
+}
+
+.mediumTheme{
+background:#1e3a8a;
+color:white;
+height:100vh;
+padding-top:40px;
+font-family:"Trebuchet MS";
+}
+
+.hardTheme{
+background:#c2410c;
+color:white;
+height:100vh;
+padding-top:40px;
+font-family:"Impact";
+}
+
+.quizBox{
+max-width:700px;
+margin:auto;
+}
+
+.question{
+font-size:28px;
+margin:20px;
+}
+
+.option{
+font-size:20px;
+margin:10px;
+}
+
+button{
+padding:10px 20px;
+margin:10px;
+border:none;
+border-radius:8px;
+cursor:pointer;
+font-size:16px;
+}
+
+.progress{
+font-size:18px;
+}
+
+.score{
+font-size:20px;
+margin:10px;
+}
+
+/* CONFETTI */
+
+.confetti{
+position:fixed;
+width:8px;
+height:8px;
+top:0;
+animation:fall 2s linear forwards;
+}
+
+@keyframes fall{
+
+0%{transform:translateY(0) rotate(0);opacity:1;}
+
+100%{transform:translateY(600px) rotate(720deg);opacity:0;}
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<!-- FRONT PAGE -->
+
+<div class="home" id="home">
+
+<div class="title">DEGREES OF COMPARISON QUIZ</div>
+
+<div class="intro">
+
+Degrees of Comparison describe different levels of adjectives.
+
+Positive Degree → describes a quality
+Example: Ram is tall.
+
+Comparative Degree → compares two things
+Example: Ram is taller than Ravi.
+
+Superlative Degree → compares more than two
+Example: Ram is the tallest boy in the class.
+
+Choose a level and test your grammar skills!
+
+</div>
+
+<div class="levelContainer">
+
+<div class="levelCard easy" onclick="startQuiz('easy')">EASY</div>
+
+<div class="levelCard medium" onclick="startQuiz('medium')">MEDIUM</div>
+
+<div class="levelCard hard" onclick="startQuiz('hard')">HARD</div>
+
+</div>
+
+</div>
+
+<!-- QUIZ -->
+
+<div id="quizPage" style="display:none">
+
+<div class="quizBox">
+
+<button onclick="goHome()">⬅ Back</button>
+
+<div class="progress" id="progress"></div>
+
+<div class="score" id="score"></div>
+
+<div class="question" id="question"></div>
+
+<div id="options"></div>
+
+<button onclick="previousQuestion()">Previous</button> <button onclick="checkAnswer()">Submit</button> <button onclick="nextQuestion()">Next</button>
+
+<p id="result"></p>
+
+</div>
+
+</div>
+
+<script>
+
+/* QUESTION GENERATOR */
+
+function makeQuestions(){
+
+let words=[
+["tall","taller","tallest"],
+["fast","faster","fastest"],
+["small","smaller","smallest"],
+["big","bigger","biggest"],
+["old","older","oldest"],
+["young","younger","youngest"],
+["cold","colder","coldest"],
+["warm","warmer","warmest"],
+["short","shorter","shortest"],
+["long","longer","longest"]
+]
+
+let arr=[]
+
+for(let i=0;i<20;i++){
+
+let w=words[i%10]
+
+let type=Math.floor(Math.random()*3)
+
+if(type==0){
+
+arr.push({
+q:"Comparative form of "+w[0],
+o:[w[0],w[1],w[2],"more "+w[0]],
+a:w[1]
+})
+
+}
+
+else if(type==1){
+
+arr.push({
+q:"Superlative form of "+w[0],
+o:[w[0],w[1],w[2],"most "+w[0]],
+a:w[2]
+})
+
+}
+
+else{
+
+arr.push({
+q:"Positive form of "+w[1],
+o:[w[0],w[1],w[2],"most "+w[0]],
+a:w[0]
+})
+
+}
+
+}
+
+return arr
+
+}
+
+/* LEVEL QUESTIONS */
+
+let easyQuestions=makeQuestions()
+let mediumQuestions=makeQuestions()
+let hardQuestions=makeQuestions()
+
+let questions=[]
+let current=0
+let score=0
+
+function startQuiz(level){
+
+document.getElementById("home").style.display="none"
+document.getElementById("quizPage").style.display="block"
+
+if(level=="easy"){
+questions=easyQuestions
+document.body.className="easyTheme"
+}
+
+if(level=="medium"){
+questions=mediumQuestions
+document.body.className="mediumTheme"
+}
+
+if(level=="hard"){
+questions=hardQuestions
+document.body.className="hardTheme"
+}
+
+loadQuestion()
+
+}
+
+/* LOAD QUESTION */
+
+function loadQuestion(){
+
+let q=questions[current]
+
+document.getElementById("progress").innerText=
+"Question "+(current+1)+" / "+questions.length
+
+document.getElementById("score").innerText=
+"Score: "+score+" / "+questions.length
+
+document.getElementById("question").innerText=q.q
+
+let html=""
+
+for(let i=0;i<q.o.length;i++){
+
+html+=`
+<div class="option">
+<input type="radio" name="opt" value="${q.o[i]}"> ${q.o[i]}
+</div>
+`
+
+}
+
+document.getElementById("options").innerHTML=html
+
+}
+
+/* CHECK ANSWER */
+
+function checkAnswer(){
+
+let selected=document.querySelector('input[name="opt"]:checked')
+
+if(!selected){
+alert("Select an answer")
+return
+}
+
+if(selected.value==questions[current].a){
+
+score++
+
+confetti()
+
+let messages=[
+"Excellent! 💜",
+"Great Job! 💜",
+"Awesome! 💜",
+"Fantastic! 💜"
+]
+
+let m=messages[Math.floor(Math.random()*messages.length)]
+
+document.getElementById("result").innerText=m
+
+}
+
+else{
+
+document.getElementById("result").innerText=
+"Correct answer: "+questions[current].a
+
+}
+
+document.getElementById("score").innerText=
+"Score: "+score+" / "+questions.length
+
+}
+
+/* NEXT */
+
+function nextQuestion(){
+
+current++
+
+if(current<questions.length){
+
+loadQuestion()
+
+}
+else{
+
+document.getElementById("question").innerText="Quiz Completed!"
+
+document.getElementById("options").innerHTML=""
+
+document.getElementById("result").innerText=
+"Final Score: "+score+" / "+questions.length
+
+}
+
+}
+
+/* PREVIOUS */
+
+function previousQuestion(){
+
+if(current>0){
+current--
+loadQuestion()
+}
+
+}
+
+/* CONFETTI */
+
+function confetti(){
+
+for(let i=0;i<40;i++){
+
+let c=document.createElement("div")
+
+c.className="confetti"
+
+c.style.left=Math.random()*window.innerWidth+"px"
+
+c.style.background=["#a855f7","#9333ea","#7e22ce"][Math.floor(Math.random()*3)]
+
+document.body.appendChild(c)
+
+setTimeout(()=>{c.remove()},2000)
+
+}
+
+}
+
+function goHome(){
+location.reload()
+}
+
+</script>
+
+</body>
+
+</html>
