@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Preposition Master - Learn & Test</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #0f0f23 0%, #1a1a2e 50%, #16213e 100%);
+            min-height: 100vh;
+            color: #4fc3f7;
+            overflow-x: hidden;
+        }
+
+        /* Homepage Styles */
+        .home-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            text-align: center;
+        }
+
+        .home-header {
+            animation: slideDown 1s ease-out;
+            margin-bottom: 40px;
+        }
+
+        .home-header h1 {
+            font-size: 3.5em;
+            background: linear-gradient(45deg, #4fc3f7, #81d4fa, #4fc3f7);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 15px;
+            text-shadow: 0 0 30px rgba(79, 195, 247, 0.5);
+        }
+
+        .home-header p {
+            font-size: 1.3em;
+            color: #b3e5fc;
+            margin-bottom: 20px;
+        }
+
+        .definition-section {
+            background: rgba(26, 26, 46, 0.8);
+            backdrop-filter: blur(15px);
+            border-radius: 25px;
+            padding: 50px;
+            border: 1px solid rgba(79, 195, 247, 0.3);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
+            margin: 40px 0;
+            animation: fadeInUp 1s ease-out 0.3s both;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .definition-title {
+            font-size: 2.2em;
+            margin-bottom: 25px;
+            color: #81d4fa;
+        }
+
+        .definition-text {
+            font-size: 1.2em;
+            line-height: 1.8;
+            color: #b3e5fc;
+            margin-bottom: 30px;
+        }
+
+        .examples-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin-top: 30px;
+        }
+
+        .example-card {
+            background: rgba(79, 195, 247, 0.1);
+            padding: 25px;
+            border-radius: 20px;
+            border: 1px solid rgba(79, 195, 247, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .example-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(79, 195, 247, 0.3);
+        }
+
+        .example-title {
+            font-size: 1.3em;
+            color: #4fc3f7;
+            margin-bottom: 15px;
+            font-weight: bold;
+        }
+
+        .example-list {
+            text-align: left;
+            color: #b3e5fc;
+        }
+
+        .example-list li {
+            margin-bottom: 8px;
+            padding: 8px 0;
+            font-size: 1.1em;
+        }
+
+        .example-list li strong {
+            color: #81d4fa;
+        }
+
+        .quiz-btn {
+            background: linear-gradient(45deg, #4fc3f7, #29b6f6);
+            color: white;
+            border: none;
+            padding: 20px 50px;
+            border-radius: 50px;
+            font-size: 1.4em;
+            cursor: pointer;
+            transition: all 0.4s ease;
+            box-shadow: 0 10px 30px rgba(79, 195, 247, 0.4);
+            font-weight: bold;
+            text-decoration: none;
+            display: inline-block;
+            margin-top: 40px;
+            animation: pulse 2s infinite;
+        }
+
+        .quiz-btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(79, 195, 247, 0.6);
+        }
+
+        /* Quiz Page Styles (same as original) */
+        .quiz-container {
+            background: rgba(26, 26, 46, 0.8);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 40px;
+            border: 1px solid rgba(79, 195, 247, 0.3);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+            animation: fadeInUp 1s ease-out;
+            max-width: 900px;
+            margin: 0 auto 40px;
+        }
+
+        /* Hide quiz by default */
+        #quizPage {
+            display: none;
+        }
+
+        /* Animations */
+        @keyframes slideDown {
+            from { transform: translateY(-50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        @keyframes fadeInUp {
+            from { transform: translateY(30px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        @keyframes pulse {
+            0% { box-shadow: 0 10px 30px rgba(79, 195, 247, 0.4); }
+            50% { box-shadow: 0 10px 30px rgba(79, 195, 247, 0.7); }
+            100% { box-shadow: 0 10px 30px rgba(79, 195, 247, 0.4); }
+        }
+
+        @media (max-width: 768px) {
+            .home-header h1 { font-size: 2.5em; }
+            .definition-section { padding: 30px 20px; }
+            .examples-grid { grid-template-columns: 1fr; }
+            .quiz-container { padding: 20px; margin: 20px; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Homepage -->
+    <div id="homePage" class="home-container">
+        <div class="home-header">
+            <h1>🧠 Preposition Master</h1>
+            <p>Master English Prepositions | Level Up Your Grammar!</p>
+        </div>
+
+        <div class="definition-section">
+            <h2 class="definition-title">📚 What are Prepositions?</h2>
+            <p class="definition-text">
+                Prepositions are words that show the <strong>relationship</strong> between a noun/pronoun and other words in a sentence. 
+                They indicate <strong>place, time, direction, manner, agent, measure</strong>, and more.
+            </p>
+            <p class="definition-text">
+                <strong>Key Point:</strong> Prepositions are always followed by a noun or pronoun (object of the preposition).
+            </p>
+
+            <div class="examples-grid">
+                <div class="example-card">
+                    <div class="example-title">🏠 Place Prepositions</div>
+                    <ul class="example-list">
+                        <li><strong>in</strong> the room</li>
+                        <li><strong>on</strong> the table</li>
+                        <li><strong>at</strong> the door</li>
+                        <li><strong>under</strong> the bed</li>
+                        <li><strong>beside</strong> the chair</li>
+                    </ul>
+                </div>
+                <div class="example-card">
+                    <div class="example-title">⏰ Time Prepositions</div>
+                    <ul class="example-list">
+                        <li><strong>at</strong> 5 PM</li>
+                        <li><strong>on</strong> Monday</li>
+                        <li><strong>in</strong> July</li>
+                        <li><strong>before</strong> lunch</li>
+                        <li><strong>after</strong> school</li>
+                    </ul>
+                </div>
+                <div class="example-card">
+                    <div class="example-title">➡️ Direction Prepositions</div>
+                    <ul class="example-list">
+                        <li><strong>to</strong> the store</li>
+                        <li><strong>into</strong> the house</li>
+                        <li><strong>through</strong> the tunnel</li>
+                        <li><strong>across</strong> the street</li>
+                        <li><strong>over</strong> the bridge</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <a href="#" class="quiz-btn" onclick="startQuiz()">🚀 Start Preposition Quiz </a>
+    </div>
+
+    <!-- Quiz Page (Your original quiz code) -->
+    <div id="quizPage">
+        <div class="container">
+            <div class="header">
+                <h1>🧠 Preposition Quiz</h1>
+                <p>Master Prepositions | Level Up Your English!</p>
+            </div>
+
+            <div class="progress-bar">
+                <div class="progress" id="progress"></div>
+            </div>
+
+            <div class="quiz-container" id="quizContainer">
+                <div class="question" id="question"></div>
+                <div class="options" id="options"></div>
+                <div class="controls">
+                    <button class="btn" id="prevBtn" onclick="previousQuestion()">← Previous</button>
+                    <button class="btn" id="nextBtn" onclick="nextQuestion()">Next →</button>
+                    <button class="btn" id="submitBtn" onclick="submitQuiz()" style="display: none;">Submit Quiz</button>
+                    
+                </div>
+            </div>
+
+            <div id="resultContainer" style="display: none;">
+                <div class="quiz-container">
+                    <div class="score" id="finalScore"></div>
+                    <div class="stats" id="stats"></div>
+                    <button class="btn" onclick="restartQuiz()" style="width: 100%; margin-top: 20px;">🔄 Restart Quiz</button>
+                    <button class="btn" onclick="goHome()" style="width: 100%; margin-top: 20px;">🏠 Back to Home</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Quiz questions (your original questions with corrected indices)
+        const questions = [
+            {question: "She is afraid _____ dogs.", options: ["of", "at", "on", "with"], correct: 0, explanation: "Correct: 'afraid of' (emotion preposition)"},
+            {question: "He is good _____ mathematics.", options: ["at", "in", "on", "with"], correct: 0, explanation: "Correct: 'good at' (skill preposition)"},
+            {question: "The book is _____ the table.", options: ["on", "in", "at", "by"], correct: 0, explanation: "Correct: 'on the table' (surface position)"},
+            {question: "We arrived _____ the airport at 7 PM.", options: ["at", "in", "on", "to"], correct: 0, explanation: "Correct: 'at the airport' (specific point)"},
+            {question: "She is interested _____ learning new languages.", options: ["in", "on", "at", "with"], correct: 0, explanation: "Correct: 'interested in' (common collocation)"},
+            {question: "The cat jumped _____ the wall.", options: ["over", "on", "at", "in"], correct: 0, explanation: "Correct: 'over the wall' (movement preposition)"},
+            {question: "They live _____ a small village.", options: ["in", "on", "at", "by"], correct: 0, explanation: "Correct: 'in a village' (enclosed area)"},
+            {question: "I will meet you _____ 5 o'clock.", options: ["at", "on", "in", "by"], correct: 0, explanation: "Correct: 'at 5 o'clock' (specific time)"},
+            {question: "The letter is _____ the drawer.", options: ["in", "on", "at", "over"], correct: 0, explanation: "Correct: 'in the drawer' (container preposition)"},
+            {question: "He apologized _____ being late.", options: ["for", "about", "on", "at"], correct: 0, explanation: "Correct: 'apologized for' (reason preposition)"},
+            {question: "The picture hangs _____ the wall.", options: ["on", "in", "at", "over"], correct: 0, explanation: "Correct: 'on the wall' (surface attachment)"},
+            {question: "She is waiting _____ the bus stop.", options: ["at", "in", "on", "by"], correct: 0, explanation: "Correct: 'at the bus stop' (specific location)"},
+            {question: "We go to bed _____ 10 PM.", options: ["at", "in", "on", "by"], correct: 0, explanation: "Correct: 'at 10 PM' (specific time)"},
+            {question: "The keys are _____ the car.", options: ["in", "on", "at", "over"], correct: 0, explanation: "Correct: 'in the car' (inside container)"},
+            {question: "He is angry _____ his brother.", options: ["with", "at", "on", "in"], correct: 0, explanation: "Correct: 'angry with' (emotion toward person)"},
+            {question: "I am tired _____ studying.", options: ["of", "with", "at", "on"], correct: 0, explanation: "Correct: 'tired of' (emotion preposition)"},
+            {question: "She is married _____ John.", options: ["to", "with", "at", "on"], correct: 0, explanation: "Correct: 'married to' (relationship preposition)"},
+            {question: "The meeting is _____ Monday.", options: ["on", "in", "at", "by"], correct: 0, explanation: "Correct: 'on Monday' (day preposition)"},
+            {question: "He died _____ cancer.", options: ["of", "from", "with", "by"], correct: 1, explanation: "Correct: 'died from' (cause of death)"},
+            {question: "We are grateful _____ your help.", options: ["for", "to", "with", "at"], correct: 0, explanation: "Correct: 'grateful for' (gratitude preposition)"},
+            {question: "The shop is _____ the corner.", options: ["at", "on", "in", "by"], correct: 3, explanation: "Correct: 'by the corner' (near position)"},
+            {question: "She succeeded _____ becoming a doctor.", options: ["in", "on", "at", "with"], correct: 0, explanation: "Correct: 'succeeded in' (achievement preposition)"},
+            {question: "I will call you _____ I arrive.", options: ["when", "after", "before", "until"], correct: 0, explanation: "Correct: 'when I arrive' (time clause)"},
+            {question: "The movie starts _____ 8 PM.", options: ["at", "on", "in", "by"], correct: 0, explanation: "Correct: 'at 8 PM' (specific time)"},
+            {question: "He is responsible _____ the project.", options: ["for", "of", "with", "at"], correct: 0, explanation: "Correct: 'responsible for' (duty preposition)"},
+            {question: "She is fond _____ chocolate.", options: ["of", "with", "at", "on"], correct: 0, explanation: "Correct: 'fond of' (liking preposition)"},
+            {question: "The ball is _____ the box.", options: ["under", "on", "in", "at"], correct: 0, explanation: "Correct: 'under the box' (position preposition)"},
+            {question: "We must decide _____ tomorrow.", options: ["by", "on", "at", "in"], correct: 0, explanation: "Correct: 'by tomorrow' (deadline preposition)"},
+            {question: "He is similar _____ his father.", options: ["to", "with", "at", "on"], correct: 0, explanation: "Correct: 'similar to' (comparison preposition)"},
+            {question: "The children are playing _____ the park.", options: ["in", "on", "at", "by"], correct: 0, explanation: "Correct: 'in the park' (enclosed area)"},
+            {question: "She is allergic _____ nuts.", options: ["to", "with", "at", "on"], correct: 0, explanation: "Correct: 'allergic to' (medical preposition)"},
+            {question: "I will wait _____ you finish.", options: ["until", "before", "after", "when"], correct: 0, explanation: "Correct: 'until you finish' (time preposition)"},
+            {question: "The gift is _____ my sister.", options: ["from", "to", "with", "for"], correct: 3, explanation: "Correct: 'for my sister' (purpose preposition)"},
+                        {question: "The train leaves _____ platform 3.", options: ["from", "at", "on", "in"], correct: 1, explanation: "Correct: 'at platform 3' (specific location)"},
+            {question: "She is jealous _____ her success.", options: ["of", "with", "at", "on"], correct: 0, explanation: "Correct: 'jealous of' (emotion preposition)"},
+            {question: "We arrived _____ time for the meeting.", options: ["in", "on", "at", "by"], correct: 1, explanation: "Correct: 'on time' (punctuality)"},
+            {question: "The painting is worth _____ $1000.", options: ["of", "for", "at", "on"], correct: 2, explanation: "Correct: 'worth $1000' (value preposition)"},
+            {question: "He insisted _____ paying the bill.", options: ["on", "in", "at", "for"], correct: 0, explanation: "Correct: 'insisted on' (persistence preposition)"},
+            {question: "The dog ran _____ the street.", options: ["across", "on", "in", "at"], correct: 0, explanation: "Correct: 'across the street' (movement preposition)"},
+            {question: "She is proud _____ her children.", options: ["of", "with", "at", "on"], correct: 0, explanation: "Correct: 'proud of' (emotion preposition)"},
+            {question: "The answer is _____ page 25.", options: ["on", "in", "at", "by"], correct: 0, explanation: "Correct: 'on page 25' (specific location)"},
+            {question: "I agree _____ you completely.", options: ["with", "to", "on", "at"], correct: 0, explanation: "Correct: 'agree with' (agreement preposition)"},
+            {question: "The lamp is _____ the table.", options: ["beside", "on", "in", "at"], correct: 0, explanation: "Correct: 'beside the table' (position preposition)"},
+            {question: "He is dependent _____ his parents.", options: ["on", "of", "with", "at"], correct: 0, explanation: "Correct: 'dependent on' (reliance preposition)"},
+            {question: "The store closes _____ 9 PM.", options: ["at", "on", "in", "by"], correct: 0, explanation: "Correct: 'at 9 PM' (specific time)"},
+            {question: "She is famous _____ her cooking.", options: ["for", "of", "with", "at"], correct: 0, explanation: "Correct: 'famous for' (known for skill)"},
+            {question: "The bird flew _____ the window.", options: ["through", "on", "at", "in"], correct: 0, explanation: "Correct: 'through the window' (movement preposition)"},
+            {question: "I am confused _____ the instructions.", options: ["about", "with", "on", "at"], correct: 0, explanation: "Correct: 'confused about' (uncertainty preposition)"},
+            {question: "He is addicted _____ gambling.", options: ["to", "with", "at", "on"], correct: 0, explanation: "Correct: 'addicted to' (habit preposition)"},
+            {question: "The cake is _____ the oven.", options: ["in", "on", "at", "by"], correct: 0, explanation: "Correct: 'in the oven' (container preposition)"},
+            {question: "She takes care _____ her plants.", options: ["of", "with", "at", "on"], correct: 0, explanation: "Correct: 'takes care of' (responsibility preposition)"},
+            {question: "The concert is _____ July 15th.", options: ["on", "in", "at", "by"], correct: 0, explanation: "Correct: 'on July 15th' (specific date)"},
+            {question: "He is aware _____ the risks.", options: ["of", "with", "at", "on"], correct: 0, explanation: "Correct: 'aware of' (knowledge preposition)"},
+            {question: "The money is hidden _____ the mattress.", options: ["under", "on", "in", "at"], correct: 0, explanation: "Correct: 'under the mattress' (position preposition)"},
+            {question: "She is excited _____ the trip.", options: ["about", "with", "on", "at"], correct: 0, explanation: "Correct: 'excited about' (emotion preposition)"},
+            {question: "We need to talk _____ your behavior.", options: ["about", "of", "with", "at"], correct: 0, explanation: "Correct: 'talk about' (discussion preposition)"},
+            {question: "The painting is different _____ the original.", options: ["from", "to", "with", "at"], correct: 0, explanation: "Correct: 'different from' (comparison preposition)"},
+            {question: "He is short _____ time.", options: ["of", "in", "on", "with"], correct: 0, explanation: "Correct: 'short of time' (quantity preposition)"},
+            {question: "The soup tastes _____ salt.", options: ["of", "like", "with", "as"], correct: 1, explanation: "Correct: 'tastes like salt' (similarity preposition)"},
+            {question: "She is dressed _____ white.", options: ["in", "with", "on", "at"], correct: 0, explanation: "Correct: 'dressed in white' (clothing preposition)"},
+            {question: "The decision depends _____ the weather.", options: ["on", "of", "with", "at"], correct: 0, explanation: "Correct: 'depends on' (condition preposition)"},
+            {question: "I will arrive _____ noon.", options: ["at", "on", "in", "by"], correct: 0, explanation: "Correct: 'at noon' (specific time)"},
+            {question: "He is known _____ his generosity.", options: ["for", "of", "with", "at"], correct: 0, explanation: "Correct: 'known for' (reputation preposition)"},
+            {question: "The children are afraid _____ the dark.", options: ["of", "in", "at", "on"], correct: 0, explanation: "Correct: 'afraid of' (emotion preposition)"}
+        ];
+
+        let currentQuestion = 0;
+        let score = 0;
+        let answers = [];
+
+        // Navigation functions
+        function startQuiz() {
+            document.getElementById('homePage').style.display = 'none';
+            document.getElementById('quizPage').style.display = 'block';
+            currentQuestion = 0;
+            score = 0;
+            answers = [];
+            loadQuestion();
+        }
+
+        function goHome() {
+            document.getElementById('quizPage').style.display = 'none';
+            document.getElementById('homePage').style.display = 'flex';
+            // Reset quiz styles
+            document.querySelectorAll('.option').forEach(opt => {
+                opt.classList.remove('correct', 'incorrect');
+                opt.style.pointerEvents = 'auto';
+            });
+        }
+
+        // Quiz functions (your original code)
+        function loadQuestion() {
+            const q = questions[currentQuestion];
+            document.getElementById('question').innerHTML = 
+                `<strong>Q${currentQuestion + 1}:</strong> ${q.question}`;
+            
+            const optionsDiv = document.getElementById('options');
+            optionsDiv.innerHTML = '';
+            
+            q.options.forEach((option, index) => {
+                const optionDiv = document.createElement('div');
+                optionDiv.className = 'option';
+                optionDiv.innerHTML = `<strong>${String.fromCharCode(65 + index)}.</strong> ${option}`;
+                optionDiv.onclick = () => selectOption(index);
+                optionsDiv.appendChild(optionDiv);
+            });
+
+            updateProgress();
+            updateButtons();
+        }
+
+        function selectOption(selected) {
+            const options = document.querySelectorAll('.option');
+            options.forEach((opt, index) => {
+                opt.style.pointerEvents = 'none';
+                if (index === questions[currentQuestion].correct) {
+                    opt.classList.add('correct');
+                } else if (index === selected && index !== questions[currentQuestion].correct) {
+                    opt.classList.add('incorrect');
+                }
+            });
+
+            if (selected === questions[currentQuestion].correct) {
+                score++;
+            }
+            answers[currentQuestion] = selected;
+        }
+
+        function nextQuestion() {
+            currentQuestion++;
+            if (currentQuestion < questions.length) {
+                loadQuestion();
+            } else {
+                showResults();
+            }
+        }
+
+        function previousQuestion() {
+            if (currentQuestion > 0) {
+                currentQuestion--;
+                loadQuestion();
+            }
+        }
+
+        function updateProgress() {
+            const progress = ((currentQuestion + 1) / questions.length) * 100;
+            document.getElementById('progress').style.width = progress + '%';
+        }
+
+        function updateButtons() {
+            document.getElementById('prevBtn').style.display = currentQuestion === 0 ? 'none' : 'inline-block';
+            document.getElementById('nextBtn').style.display = 
+                currentQuestion === questions.length - 1 ? 'none' : 'inline-block';
+            document.getElementById('submitBtn').style.display = 
+                currentQuestion === questions.length - 1 ? 'inline-block' : 'none';
+        }
+
+        function submitQuiz() {
+            showResults();
+        }
+
+        function showResults() {
+            document.getElementById('quizContainer').style.display = 'none';
+            document.getElementById('resultContainer').style.display = 'block';
+            
+            const percentage = Math.round((score / questions.length) * 100);
+            document.getElementById('finalScore').innerHTML = 
+                `🎉 Your Score: ${score}/${questions.length} (${percentage}%)`;
+            
+            const statsDiv = document.getElementById('stats');
+            statsDiv.innerHTML = `
+                <div class="stat-card">
+                    <h3>${score}</h3>
+                    <p>Correct</p>
+                </div>
+                <div class="stat-card">
+                    <h3>${questions.length - score}</h3>
+                    <p>Incorrect</p>
+                </div>
+                <div class="stat-card">
+                    <h3>${percentage}%</h3>
+                    <p>Accuracy</p>
+                </div>
+            `;
+        }
+
+        function restartQuiz() {
+            currentQuestion = 0;
+            score = 0;
+            answers = [];
+            document.getElementById('quizContainer').style.display = 'block';
+            document.getElementById('resultContainer').style.display = 'none';
+            loadQuestion();
+        }
+
+        // Add missing CSS for quiz (from your original code)
+        const style = document.createElement('style');
+        style.textContent = `
+            .progress-bar { background: rgba(79, 195, 247, 0.2); height: 10px; border-radius: 5px; margin-bottom: 30px; overflow: hidden; }
+            .progress { height: 100%; background: linear-gradient(90deg, #4fc3f7, #81d4fa); width: 0%; transition: width 0.5s ease; border-radius: 5px; box-shadow: 0 0 10px rgba(79, 195, 247, 0.5); }
+            .question { font-size: 1.4em; margin-bottom: 30px; line-height: 1.6; color: #b3e5fc; }
+            .options { display: grid; gap: 15px; margin-bottom: 30px; }
+            .option { background: rgba(79, 195, 247, 0.1); border: 2px solid rgba(79, 195, 247, 0.3); border-radius: 12px; padding: 20px; cursor: pointer; transition: all 0.3s ease; font-size: 1.1em; position: relative; overflow: hidden; }
+            .option:hover { background: rgba(79, 195, 247, 0.2); border-color: #4fc3f7; transform: translateY(-2px); box-shadow: 0 10px 25px rgba(79, 195, 247, 0.3); }
+            .option.correct { background: rgba(76, 175, 80, 0.3); border-color: #4caf50; animation: correctAnim 0.6s ease; }
+            .option.incorrect { background: rgba(244, 67, 54, 0.3); border-color: #f44336; animation: incorrectAnim 0.6s ease; }
+            .controls { display: flex; gap: 15px; justify-content: space-between; margin-top: 30px; align-items: center; }
+            .btn { background: linear-gradient(45deg, #4fc3f7, #29b6f6); color: white; border: none; padding: 15px 30px; border-radius: 50px; font-size: 1.1em; cursor: pointer; transition: all 0.3s ease; box-shadow: 0 5px 15px rgba(79, 195, 247, 0.4); font-weight: bold; }
+            .btn:hover { transform: translateY(-3px); box-shadow: 0 10px 25px rgba(79, 195, 247, 0.6); }
+            .btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+            .score { text-align: center; font-size: 1.5em; margin: 20px 0; color: #81d4fa; }
+            .stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; margin-top: 30px; }
+            .stat-card { background: rgba(79, 195, 247, 0.1); padding: 20px; border-radius: 15px; text-align: center; border: 1px solid rgba(79, 195, 247, 0.3); }
+            .stat-card h3 { font-size: 2.5em; color: #4fc3f7; margin-bottom: 10px; }
+            @keyframes correctAnim { 0% { transform: scale(1); } 50% { transform: scale(1.05); } 100% { transform: scale(1); } }
+            @keyframes incorrectAnim { 0% { transform: scale(1); } 50% { transform: scale(0.95); } 100% { transform: scale(1); } }
+            .container { max-width: 900px; margin: 0 auto; padding: 20px; }
+            .header { text-align: center; margin-bottom: 40px; animation: slideDown 1s ease-out; }
+            .header h1 { font-size: 2.5em; background: linear-gradient(45deg, #4fc3f7, #81d4fa, #4fc3f7); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; margin-bottom: 10px; text-shadow: 0 0 20px rgba(79, 195, 247, 0.5); }
+        `;
+        document.head.appendChild(style);
+    </script>
+</body>
+</html>
