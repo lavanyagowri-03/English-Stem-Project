@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Ultimate Sentence Structure Challenge</title>
+
+<style>
+
+*{
+box-sizing:border-box;
+}
+
+/* NEON BACKGROUND */
+
+body{
+font-family:'Segoe UI',sans-serif;
+margin:0;
+height:100vh;
+display:flex;
+justify-content:center;
+align-items:center;
+
+background:linear-gradient(135deg,#0f2027,#203a43,#2c5364);
+background-size:400% 400%;
+animation:bgMove 12s infinite alternate;
+}
+
+@keyframes bgMove{
+0%{background-position:left;}
+100%{background-position:right;}
+}
+
+/* LAYOUT */
+
+.container{
+display:flex;
+width:1000px;
+gap:20px;
+}
+
+/* QUIZ CARD */
+
+.quiz-box{
+flex:1;
+background:rgba(0,0,0,0.65);
+color:white;
+padding:30px;
+border-radius:15px;
+box-shadow:0 0 25px #00f2ff,0 0 60px #ff00ff;
+backdrop-filter:blur(10px);
+}
+
+h1{
+text-align:center;
+margin-top:0;
+color:#00f2ff;
+text-shadow:0 0 10px #00f2ff,0 0 20px #ff00ff;
+}
+
+.subtitle{
+text-align:center;
+color:#ccc;
+margin-bottom:20px;
+}
+
+/* PROGRESS BAR */
+
+.progressBar{
+width:100%;
+height:10px;
+background:#333;
+border-radius:10px;
+margin-bottom:20px;
+}
+
+.progress{
+height:10px;
+background:linear-gradient(90deg,#00f2ff,#ff00ff);
+width:0%;
+border-radius:10px;
+box-shadow:0 0 10px #00f2ff;
+}
+
+/* QUESTION */
+
+.question{
+font-size:20px;
+margin-bottom:20px;
+display:flex;
+justify-content:space-between;
+align-items:center;
+}
+
+.flag{
+cursor:pointer;
+font-size:22px;
+}
+
+/* OPTIONS */
+
+.option{
+display:block;
+background:rgba(255,255,255,0.1);
+padding:12px;
+border-radius:8px;
+margin:10px 0;
+cursor:pointer;
+transition:0.3s;
+border:1px solid transparent;
+}
+
+.option:hover{
+background:rgba(0,255,255,0.2);
+transform:scale(1.05);
+border:1px solid #00f2ff;
+box-shadow:0 0 10px #00f2ff;
+}
+
+/* BUTTONS */
+
+.buttons{
+display:flex;
+justify-content:space-between;
+margin-top:20px;
+}
+
+button{
+padding:10px 20px;
+border:none;
+border-radius:8px;
+background:linear-gradient(90deg,#ff00ff,#00f2ff);
+color:white;
+font-size:15px;
+cursor:pointer;
+transition:0.3s;
+box-shadow:0 0 10px #ff00ff;
+}
+
+button:hover{
+transform:scale(1.05);
+box-shadow:0 0 20px #00f2ff;
+}
+
+/* RIGHT NAVIGATION */
+
+.nav{
+width:160px;
+background:rgba(0,0,0,0.6);
+color:white;
+padding:15px;
+border-radius:12px;
+box-shadow:0 0 20px #00f2ff;
+display:grid;
+grid-template-columns:repeat(5,1fr);
+gap:8px;
+max-height:500px;
+overflow:auto;
+}
+
+.nav button{
+height:35px;
+background:#222;
+color:#fff;
+font-size:14px;
+border-radius:6px;
+border:none;
+cursor:pointer;
+}
+
+.nav button.current{
+background:#00f2ff;
+color:black;
+}
+
+.nav button.answered{
+background:#7ed957;
+color:black;
+}
+
+.nav button.flagged{
+background:#ffb347;
+color:black;
+}
+
+/* RESULT PAGE */
+
+#result{
+display:none;
+width:900px;
+background:black;
+color:white;
+padding:30px;
+border-radius:12px;
+box-shadow:0 0 30px #00f2ff;
+max-height:90vh;
+overflow:auto;
+}
+
+.correct{
+color:#7CFC00;
+font-weight:bold;
+}
+
+.wrong{
+color:#ff4c4c;
+font-weight:bold;
+}
+
+.review{
+margin-bottom:15px;
+border-bottom:1px solid #444;
+padding-bottom:10px;
+}
+
+/* CONFETTI */
+
+.confetti{
+position:fixed;
+width:10px;
+height:10px;
+top:0;
+animation:fall 3s linear infinite;
+}
+
+@keyframes fall{
+to{
+transform:translateY(100vh) rotate(360deg);
+}
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<div class="quiz-box">
+
+<h1>🚀 Sentence Structure </h1>
+
+<p class="subtitle">
+Test your grammar skills and become a Sentence Structure Master!
+</p>
+
+<div class="progressBar">
+<div class="progress" id="progress"></div>
+</div>
+
+<div class="question">
+<span id="question"></span>
+<span class="flag" onclick="toggleFlag()">🚩</span>
+</div>
+
+<div id="options"></div>
+
+<div class="buttons">
+<button id="prevBtn" onclick="prevQuestion()">Previous</button>
+<button id="nextBtn" onclick="nextQuestion()">Next</button>
+<button id="submitBtn" onclick="submitQuiz()">Submit</button>
+</div>
+
+</div>
+
+<div class="nav" id="nav"></div>
+
+</div>
+
+<div id="result"></div>
+
+<script>
+
+const quizData=[
+
+{q:"She finished her homework before dinner.",options:["SV","SVO","SVC","SVOC"],answer:1},
+{q:"The sky became dark during the storm.",options:["SVC","SVO","SV","SVOA"],answer:0},
+{q:"The teacher gave the students homework.",options:["SV","SVO","SVIO DO","SVC"],answer:2},
+{q:"She placed the book on the table.",options:["SVOA","SVC","SV","SVOC"],answer:0},
+{q:"The team elected him captain.",options:["SVC","SVOC","SVO","SV"],answer:1},
+
+{q:"The baby slept peacefully.",options:["SV","SVO","SVC","SVOC"],answer:0},
+{q:"She wrote a letter to her friend.",options:["SVC","SVO","SV","SVOC"],answer:1},
+{q:"The flowers smell wonderful.",options:["SVO","SVC","SV","SVOA"],answer:1},
+{q:"My father bought me a new phone.",options:["SV","SVC","SVIO DO","SVO"],answer:2},
+{q:"They painted the wall blue.",options:["SVO","SVOC","SV","SVC"],answer:1},
+{q:"The baby cried loudly.",options:["SV","SVO","SVC","SVOC"],answer:0},
+{q:"She placed the flowers in the vase.",options:["SVOA","SVC","SV","SVOC"],answer:0},
+{q:"The room became quiet.",options:["SVC","SVO","SV","SVOC"],answer:0},
+{q:"The teacher showed the class a video.",options:["SV","SVC","SVIO DO","SVO"],answer:2},
+{q:"They considered him a genius.",options:["SVO","SVC","SVOC","SV"],answer:2},
+{q:"The girl laughed happily.",options:["SV","SVO","SVC","SVOC"],answer:0},
+{q:"She bought a dress yesterday.",options:["SVO","SVC","SV","SVOC"],answer:0},
+{q:"The cake smells sweet.",options:["SVO","SVC","SV","SVOC"],answer:1},
+{q:"My uncle sent me a gift.",options:["SV","SVC","SVIO DO","SVO"],answer:2},
+{q:"She sent her friend a message.",options:["SV","SVO","SVIO DO","SVOC"],answer:2},
+
+];
+
+let currentQuestion=0;
+let userAnswers=new Array(quizData.length);
+
+/* CREATE NAV */
+
+function createNav(){
+
+let html="";
+
+quizData.forEach((q,i)=>{
+html+=`<button onclick="jumpQuestion(${i})" id="nav${i}">${i+1}</button>`;
+});
+
+document.getElementById("nav").innerHTML=html;
+
+}
+
+/* LOAD QUESTION */
+
+function loadQuestion(){
+
+let q=quizData[currentQuestion];
+
+document.getElementById("question").innerText=q.q;
+
+let html="";
+
+q.options.forEach((opt,i)=>{
+
+html+=`
+<label class="option">
+<input type="radio" name="option"
+${userAnswers[currentQuestion]==i?"checked":""}
+onclick="selectOption(${i})"> ${opt}
+</label>
+`;
+
+});
+
+document.getElementById("options").innerHTML=html;
+
+updateNav();
+updateProgress();
+
+document.getElementById("prevBtn").style.display=currentQuestion==0?"none":"inline-block";
+document.getElementById("nextBtn").style.display=currentQuestion==quizData.length-1?"none":"inline-block";
+document.getElementById("submitBtn").style.display=currentQuestion==quizData.length-1?"inline-block":"none";
+
+}
+
+/* SELECT OPTION */
+
+function selectOption(i){
+
+userAnswers[currentQuestion]=i;
+document.getElementById("nav"+currentQuestion).classList.add("answered");
+
+}
+
+/* FLAG QUESTION */
+
+function toggleFlag(){
+
+let btn=document.getElementById("nav"+currentQuestion);
+btn.classList.toggle("flagged");
+
+}
+
+/* NAVIGATION */
+
+function nextQuestion(){currentQuestion++;loadQuestion();}
+function prevQuestion(){currentQuestion--;loadQuestion();}
+function jumpQuestion(i){currentQuestion=i;loadQuestion();}
+
+/* NAV UPDATE */
+
+function updateNav(){
+
+document.querySelectorAll(".nav button").forEach(btn=>btn.classList.remove("current"));
+document.getElementById("nav"+currentQuestion).classList.add("current");
+
+}
+
+/* PROGRESS */
+
+function updateProgress(){
+
+let answered=userAnswers.filter(a=>a!=null).length;
+let percent=(answered/quizData.length)*100;
+
+document.getElementById("progress").style.width=percent+"%";
+
+}
+
+/* CONFETTI */
+
+function launchConfetti(){
+
+for(let i=0;i<120;i++){
+
+let conf=document.createElement("div");
+conf.className="confetti";
+
+conf.style.left=Math.random()*100+"vw";
+conf.style.background=`hsl(${Math.random()*360},100%,50%)`;
+conf.style.animationDuration=(Math.random()*3+2)+"s";
+
+document.body.appendChild(conf);
+
+}
+
+}
+
+/* SUBMIT */
+
+function submitQuiz(){
+
+let score=0;
+
+quizData.forEach((q,i)=>{
+if(userAnswers[i]==q.answer)score++;
+});
+
+let percent=Math.round(score/quizData.length*100);
+
+document.querySelector(".container").style.display="none";
+
+launchConfetti();
+
+let html=`
+<h1>🏆 Your Grammar Power Revealed!</h1>
+<h2>Score: ${score}/${quizData.length}</h2>
+<h2>Percentage: ${percent}%</h2>
+<hr>
+`;
+
+quizData.forEach((q,i)=>{
+
+let user=q.options[userAnswers[i]] || "Not Answered";
+let correct=q.options[q.answer];
+
+html+=`
+<div class="review">
+<p><b>Q${i+1}. ${q.q}</b></p>
+<p>Your Answer: <span class="${user===correct?'correct':'wrong'}">${user}</span></p>
+<p>Correct Answer: <span class="correct">${correct}</span></p>
+</div>
+`;
+
+});
+
+html+=`<button onclick="location.reload()">Restart Quiz</button>`;
+
+document.getElementById("result").innerHTML=html;
+document.getElementById("result").style.display="block";
+
+}
+
+/* START */
+
+createNav();
+loadQuestion();
+
+</script>
+
+</body>
+</html>
