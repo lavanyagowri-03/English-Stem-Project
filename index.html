@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>English Grammar Master - Interactive Learning Platform</title>
+    <title>English Grammar Master - Professional Learning Platform</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
@@ -16,24 +16,65 @@
         body {
             font-family: 'Inter', sans-serif;
             line-height: 1.6;
-            color: #334155;
+            color: #e2e8f0;
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0f172a 100%);
             overflow-x: hidden;
+            min-height: 100vh;
         }
 
-        /* Background */
-        body::before {
-            content: '';
+        /* Animated Floating Letters Background - SKY BLUE */
+        .bg-letters {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
-            height: 100%;
-            background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 50%, #1e40af 100%);
+            height: 120%;
+            pointer-events: none;
             z-index: -1;
+            opacity: 0.06;
+        }
+
+        .letter {
+            position: absolute;
+            font-size: clamp(3rem, 10vw, 8rem);
+            font-weight: 800;
+            background: linear-gradient(135deg, #60a5fa, #3b82f6, #0ea5e9, #06b6d4);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            background-size: 200% 200%;
+            animation: float 25s linear infinite, gradientShift 4s ease infinite;
+            text-shadow: 0 0 20px rgba(96, 165, 250, 0.6);
+            filter: drop-shadow(0 0 10px rgba(96, 165, 250, 0.4));
+        }
+
+        .letter:nth-child(1) { left: 10%; animation-delay: 0s; }
+        .letter:nth-child(2) { left: 20%; animation-delay: -5s; }
+        .letter:nth-child(3) { left: 40%; animation-delay: -10s; }
+        .letter:nth-child(4) { left: 60%; animation-delay: -15s; }
+        .letter:nth-child(5) { left: 80%; animation-delay: -20s; }
+        .letter:nth-child(6) { left: 90%; animation-delay: -2s; }
+
+        @keyframes float {
+            0% { 
+                transform: translateY(100vh) rotate(0deg);
+                opacity: 0;
+            }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { 
+                transform: translateY(-100px) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        @keyframes gradientShift {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
         }
 
         .container {
-            max-width: 1200px;
+            max-width: 1300px;
             margin: 0 auto;
             padding: 0 20px;
             position: relative;
@@ -43,87 +84,114 @@
         /* Header */
         .header {
             text-align: center;
-            padding: 100px 0 80px;
-            color: white;
+            padding: 140px 0 100px;
+            position: relative;
         }
 
         .header h1 {
-            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-size: clamp(3.5rem, 7vw, 6rem);
             font-weight: 800;
-            margin-bottom: 1rem;
-            background: linear-gradient(135deg, #fbbf24, #f59e0b);
+            margin-bottom: 1.5rem;
+            background: linear-gradient(135deg, #3b82f6, #1d4ed8, #1e3a8a, #3b82f6);
+            background-size: 200% 200%;
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
+            animation: gradientShift 4s ease infinite;
+            text-shadow: 0 0 40px rgba(59, 130, 246, 0.4);
         }
 
         .header .subtitle {
-            font-size: clamp(1.2rem, 3vw, 1.8rem);
-            font-weight: 500;
-            margin-bottom: 1.5rem;
-            opacity: 0.95;
+            font-size: clamp(1.4rem, 4vw, 2.2rem);
+            font-weight: 600;
+            margin-bottom: 2rem;
+            color: #94a3b8;
+            letter-spacing: 0.5px;
         }
 
         .header p {
-            font-size: 1.2rem;
-            max-width: 600px;
-            margin: 0 auto 3rem;
+            font-size: 1.3rem;
+            max-width: 700px;
+            margin: 0 auto 4rem;
+            color: #cbd5e1;
             opacity: 0.9;
         }
 
         .cta-button {
             display: inline-block;
-            background: linear-gradient(135deg, #ef4444, #dc2626);
+            background: linear-gradient(135deg, #3b82f6, #1d4ed8);
             color: white;
-            padding: 18px 40px;
+            padding: 20px 50px;
             border-radius: 50px;
             text-decoration: none;
-            font-weight: 600;
-            font-size: 1.1rem;
-            box-shadow: 0 10px 30px rgba(239, 68, 68, 0.4);
-            transition: all 0.3s ease;
+            font-weight: 700;
+            font-size: 1.2rem;
+            box-shadow: 0 20px 40px rgba(59, 130, 246, 0.4);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
             animation: pulse 2s infinite;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            transition: left 0.6s;
+        }
+
+        .cta-button:hover::before {
+            left: 100%;
         }
 
         .cta-button:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 15px 40px rgba(239, 68, 68, 0.6);
+            transform: translateY(-5px);
+            box-shadow: 0 25px 50px rgba(59, 130, 246, 0.6);
         }
 
         @keyframes pulse {
             0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.02); }
+            50% { transform: scale(1.03); }
         }
 
-        /* Topics Grid */
+        /* Topics Section */
         .topics-section {
-            padding: 80px 0;
+            padding: 120px 0;
         }
 
         .section-title {
             text-align: center;
-            font-size: 2.5rem;
-            font-weight: 700;
-            color: white;
-            margin-bottom: 3rem;
+            font-size: clamp(2.5rem, 5vw, 3.5rem);
+            font-weight: 800;
+            color: #f1f5f9;
+            margin-bottom: 4rem;
+            background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
 
         .topics-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 2rem;
-            margin-bottom: 4rem;
+            grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+            gap: 2.5rem;
+            margin-bottom: 5rem;
         }
 
         .topic-card {
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(20px);
+            background: rgba(15, 23, 42, 0.8);
+            backdrop-filter: blur(25px);
             border-radius: 24px;
-            padding: 2.5rem;
+            padding: 3rem 2.5rem;
             text-align: center;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 1px solid rgba(59, 130, 246, 0.3);
             position: relative;
             overflow: hidden;
         }
@@ -135,135 +203,182 @@
             left: 0;
             right: 0;
             height: 4px;
-            background: linear-gradient(90deg, #fbbf24, #10b981, #3b82f6, #ef4444);
+            background: linear-gradient(90deg, #3b82f6, #1d4ed8, #1e40af, #3b82f6);
             background-size: 300% 300%;
             animation: gradientShift 3s ease infinite;
         }
 
-        @keyframes gradientShift {
-            0%, 100% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
+        .topic-card::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.1), transparent);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .topic-card:hover::after {
+            opacity: 1;
         }
 
         .topic-card:hover {
-            transform: translateY(-12px) scale(1.02);
-            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.2);
+            transform: translateY(-15px) scale(1.02);
+            box-shadow: 0 35px 80px rgba(59, 130, 246, 0.3);
+            border-color: rgba(59, 130, 246, 0.6);
         }
 
         .topic-icon {
-            font-size: 3.5rem;
-            margin-bottom: 1.5rem;
+            font-size: 4rem;
+            margin-bottom: 2rem;
             display: block;
+            background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
 
         .topic-card h3 {
-            font-size: 1.6rem;
+            font-size: 1.8rem;
             font-weight: 700;
-            color: #1e3a8a;
-            margin-bottom: 1rem;
+            color: #f1f5f9;
+            margin-bottom: 1.2rem;
+            letter-spacing: -0.5px;
         }
 
         .topic-card p {
-            color: #64748b;
-            margin-bottom: 2rem;
-            line-height: 1.7;
+            color: #cbd5e1;
+            margin-bottom: 2.5rem;
+            line-height: 1.8;
+            font-size: 1.05rem;
         }
 
         .topic-btn {
-            background: linear-gradient(135deg, #ef4444, #dc2626);
+            background: linear-gradient(135deg, #3b82f6, #1d4ed8);
             color: white;
-            padding: 14px 30px;
+            padding: 16px 40px;
             border-radius: 50px;
             text-decoration: none;
             font-weight: 600;
             display: inline-block;
-            transition: all 0.3s ease;
-            box-shadow: 0 5px 20px rgba(239, 68, 68, 0.3);
+            transition: all 0.4s ease;
+            box-shadow: 0 10px 30px rgba(59, 130, 246, 0.4);
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            font-size: 1rem;
         }
 
         .topic-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(239, 68, 68, 0.5);
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(59, 130, 246, 0.6);
+            border-color: rgba(255, 255, 255, 0.3);
         }
 
         /* Features Section */
         .features {
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(20px);
+            background: rgba(15, 23, 42, 0.8);
+            backdrop-filter: blur(25px);
             border-radius: 24px;
-            padding: 4rem 2.5rem;
+            padding: 5rem 3rem;
             text-align: center;
-            margin: 4rem 0;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+            margin: 6rem 0;
+            box-shadow: 0 25px 70px rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(59, 130, 246, 0.3);
         }
 
         .features h2 {
-            font-size: 2.2rem;
-            color: #1e3a8a;
-            margin-bottom: 2rem;
-            font-weight: 700;
+            font-size: 2.8rem;
+            color: #f1f5f9;
+            margin-bottom: 2.5rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
 
         .features-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 2rem;
-            margin-top: 2rem;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2.5rem;
+            margin-top: 3rem;
         }
 
         .feature-item {
-            font-size: 1.2rem;
-            color: #1e3a8a;
+            font-size: 1.3rem;
+            color: #e2e8f0;
             font-weight: 600;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1.5rem;
+            background: rgba(59, 130, 246, 0.1);
+            border-radius: 16px;
+            border: 1px solid rgba(59, 130, 246, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .feature-item:hover {
+            background: rgba(59, 130, 246, 0.2);
+            transform: translateY(-5px);
         }
 
         .feature-item i {
-            color: #10b981;
-            margin-right: 1rem;
-            font-size: 1.4rem;
+            color: #3b82f6;
+            margin-right: 1.2rem;
+            font-size: 1.6rem;
+            width: 30px;
         }
 
         /* Footer */
         .footer {
-            background: rgba(30, 58, 138, 0.95);
-            color: white;
+            background: rgba(15, 23, 42, 0.95);
+            color: #94a3b8;
             text-align: center;
-            padding: 3rem 0;
-            margin-top: 5rem;
+            padding: 4rem 0;
+            margin-top: 6rem;
+            border-top: 1px solid rgba(59, 130, 246, 0.3);
         }
 
         .footer h3 {
-            font-size: 1.5rem;
-            margin-bottom: 0.5rem;
+            font-size: 1.8rem;
+            color: #f1f5f9;
+            margin-bottom: 1rem;
+            font-weight: 700;
         }
 
         .footer p {
-            opacity: 0.9;
-            font-size: 1rem;
+            font-size: 1.1rem;
+            opacity: 0.8;
         }
 
         /* Responsive */
         @media (max-width: 768px) {
             .header {
-                padding: 60px 0 60px;
+                padding: 80px 0 60px;
             }
             
             .topics-grid {
                 grid-template-columns: 1fr;
-                gap: 1.5rem;
+                gap: 2rem;
             }
             
             .features {
-                padding: 2.5rem 1.5rem;
-                margin: 2rem 0;
+                padding: 3rem 2rem;
+                margin: 4rem 0;
+            }
+            
+            .topics-section {
+                padding: 80px 0;
             }
         }
 
         /* Scroll Animations */
         .fade-in {
             opacity: 0;
-            transform: translateY(30px);
-            transition: all 0.8s ease;
+            transform: translateY(50px);
+            transition: all 1s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         .fade-in.visible {
@@ -273,87 +388,101 @@
 
         /* Custom Scrollbar */
         ::-webkit-scrollbar {
-            width: 8px;
+            width: 10px;
         }
 
         ::-webkit-scrollbar-track {
-            background: rgba(255, 255, 255, 0.1);
+            background: rgba(15, 23, 42, 0.8);
         }
 
         ::-webkit-scrollbar-thumb {
-            background: linear-gradient(135deg, #ef4444, #fbbf24);
-            border-radius: 4px;
+            background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+            border-radius: 5px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: linear-gradient(135deg, #1d4ed8, #1e40af);
         }
     </style>
 </head>
 <body>
+    <!-- Animated Background Letters - SKY BLUE -->
+    <div class="bg-letters">
+        <div class="letter">A</div>
+        <div class="letter">E</div>
+        <div class="letter">G</div>
+        <div class="letter">R</div>
+        <div class="letter">M</div>
+        <div class="letter">S</div>
+    </div>
+
     <div class="container">
         <!-- Header -->
         <header class="header fade-in">
             <h1>English Grammar Master</h1>
-            <div class="subtitle">Interactive Learning Platform for English Grammar</div>
-            <p>Learn English grammar easily through structured lessons, examples, and interactive quizzes. Master tenses, prepositions, modals, and more!</p>
-            <a href="#topics" class="cta-button">🚀 Start Learning Now</a>
+            <div class="subtitle">Professional Interactive Learning Platform</div>
+            <p>Master English grammar through expertly crafted lessons, real-world examples, and intelligent interactive quizzes. Perfect for students, professionals, and language enthusiasts.</p>
+            <a href="#topics" class="cta-button">🚀 Begin Your Journey</a>
         </header>
 
         <!-- Topics Section -->
         <section class="topics-section" id="topics">
-            <h2 class="section-title fade-in">Choose Your Learning Path</h2>
+            <h2 class="section-title fade-in">Master Essential Grammar Topics</h2>
             
             <div class="topics-grid">
                 <!-- Tenses -->
                 <div class="topic-card fade-in">
-                    <i class="fas fa-clock topic-icon" style="color: #10b981;"></i>
-                    <h3>Tenses</h3>
-                    <p>Master all 12 English tenses with clear examples, usage rules, and interactive practice exercises.</p>
+                    <i class="fas fa-clock topic-icon"></i>
+                    <h3>English Tenses</h3>
+                    <p>Comprehensive coverage of all 12 English tenses with detailed explanations, usage rules, timelines, and hundreds of practice exercises.</p>
                     <a href="tenses.html" class="topic-btn">Start Learning</a>
                 </div>
 
                 <!-- Prepositions -->
                 <div class="topic-card fade-in">
-                    <i class="fas fa-link topic-icon" style="color: #3b82f6;"></i>
+                    <i class="fas fa-link topic-icon"></i>
                     <h3>Prepositions</h3>
-                    <p>Understand how prepositions connect words, phrases, and clauses in English sentences.</p>
-                    <a href="prepositions.html" class="topic-btn">Start Learning</a>
+                                        <p>Master preposition usage with visual aids, common phrases, and contextual examples across different sentence structures.</p>
+                    <a href="preposition.html" class="topic-btn">Start Learning</a>
                 </div>
 
                 <!-- Modals -->
                 <div class="topic-card fade-in">
-                    <i class="fas fa-magic topic-icon" style="color: #f59e0b;"></i>
+                    <i class="fas fa-magic topic-icon"></i>
                     <h3>Modal Verbs</h3>
-                    <p>Learn modal verbs like can, could, must, should, might with usage and examples.</p>
+                    <p>Deep dive into modal verbs (can, could, must, should, might) with nuanced meanings, patterns, and advanced usage scenarios.</p>
                     <a href="modals.html" class="topic-btn">Start Learning</a>
                 </div>
 
                 <!-- Direct & Indirect Speech -->
                 <div class="topic-card fade-in">
-                    <i class="fas fa-quote-left topic-icon" style="color: #ec4899;"></i>
+                    <i class="fas fa-quote-left topic-icon"></i>
                     <h3>Direct & Indirect Speech</h3>
-                    <p>Convert between direct and indirect speech with tense changes and reporting verbs.</p>
+                    <p>Perfect tense conversions, reporting verbs, and punctuation rules for transforming direct speech into indirect speech.</p>
                     <a href="speech.html" class="topic-btn">Start Learning</a>
                 </div>
 
                 <!-- Active & Passive Voice -->
                 <div class="topic-card fade-in">
-                    <i class="fas fa-exchange-alt topic-icon" style="color: #8b5cf6;"></i>
+                    <i class="fas fa-exchange-alt topic-icon"></i>
                     <h3>Active & Passive Voice</h3>
-                    <p>Transform sentences between active and passive voice across all tenses.</p>
+                    <p>Complete transformation guide across all tenses with form recognition, usage contexts, and practice exercises.</p>
                     <a href="voice.html" class="topic-btn">Start Learning</a>
                 </div>
 
                 <!-- Degrees of Comparison -->
                 <div class="topic-card fade-in">
-                    <i class="fas fa-chart-line topic-icon" style="color: #14b8a6;"></i>
+                    <i class="fas fa-chart-line topic-icon"></i>
                     <h3>Degrees of Comparison</h3>
-                    <p>Master positive, comparative, and superlative forms of adjectives and adverbs.</p>
-                    <a href="comparison.html" class="topic-btn">Start Learning</a>
+                    <p>Adjective and adverb comparison rules, irregular forms, and advanced comparative structures with real examples.</p>
+                    <a href="degreesofcomparison.html" class="topic-btn">Start Learning</a>
                 </div>
 
                 <!-- Sentence Patterns -->
                 <div class="topic-card fade-in">
-                    <i class="fas fa-th topic-icon" style="color: #f97316;"></i>
+                    <i class="fas fa-th topic-icon"></i>
                     <h3>Sentence Patterns</h3>
-                    <p>Learn correct English sentence structures and common patterns used in communication.</p>
+                    <p>Fundamental English sentence structures, clause combinations, and professional writing patterns for clear communication.</p>
                     <a href="patterns.html" class="topic-btn">Start Learning</a>
                 </div>
             </div>
@@ -374,8 +503,11 @@
     <!-- Footer -->
     <footer class="footer">
         <div class="container">
-            <h3>English Grammar Master</h3>
-            <p>Designed for learning English grammar in a simple and interactive way. © 2026</p>
+            <h3><i class="fas fa-graduation-cap"></i> English Grammar Master</h3>
+            <p>Professional platform designed for mastering English grammar. Built with precision for serious learners. © 2026</p>
+            <div style="margin-top: 1.5rem; font-size: 0.9rem; opacity: 0.7;">
+                <i class="fas fa-code"></i> Crafted with modern web technologies
+            </div>
         </div>
     </footer>
 
@@ -390,10 +522,10 @@
             });
         });
 
-        // Scroll animations
+        // Scroll animations with Intersection Observer
         const observerOptions = {
             threshold: 0.1,
-            rootMargin: '0px 0px -50px 0px'
+            rootMargin: '0px 0px -100px 0px'
         };
 
         const observer = new IntersectionObserver((entries) => {
@@ -405,14 +537,35 @@
         }, observerOptions);
 
         // Observe all fade-in elements
-        document.querySelectorAll('.fade-in').forEach(el => {
+        document.querySelectorAll('.fade-in').forEach((el, index) => {
+            el.style.transitionDelay = `${index * 0.1}s`;
             observer.observe(el);
         });
 
-        // Add staggered animation delay to topic cards
+        // Staggered animation for topic cards
         document.querySelectorAll('.topic-card').forEach((card, index) => {
-            card.style.animationDelay = `${index * 0.1}s`;
+            card.style.transitionDelay = `${index * 0.15}s`;
+        });
+
+        // Parallax effect for header on scroll
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            const header = document.querySelector('.header');
+            const rate = scrolled * -0.5;
+            if (header) {
+                header.style.transform = `translateY(${rate}px)`;
+            }
+        });
+
+        // Add particle effect on CTA hover
+        document.querySelector('.cta-button').addEventListener('mouseenter', function() {
+            this.style.boxShadow = '0 25px 50px rgba(59, 130, 246, 0.7)';
+        });
+
+        document.querySelector('.cta-button').addEventListener('mouseleave', function() {
+            this.style.boxShadow = '0 20px 40px rgba(59, 130, 246, 0.4)';
         });
     </script>
 </body>
 </html>
+           
