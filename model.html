@@ -144,6 +144,51 @@
         }
 
         /* Quiz Page Styles */
+        #quizPage {
+            display: none;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            animation: slideDown 1s ease-out;
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            background: linear-gradient(45deg, #4fc3f7, #81d4fa, #4fc3f7);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 10px;
+            text-shadow: 0 0 20px rgba(79, 195, 247, 0.5);
+        }
+
+        .progress-bar {
+            background: rgba(79, 195, 247, 0.2);
+            height: 10px;
+            border-radius: 5px;
+            margin-bottom: 30px;
+            overflow: hidden;
+        }
+
+        .progress {
+            height: 100%;
+            background: linear-gradient(90deg, #4fc3f7, #81d4fa);
+            width: 0%;
+            transition: width 0.5s ease;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(79, 195, 247, 0.5);
+        }
+
         .quiz-container {
             background: rgba(26, 26, 46, 0.8);
             backdrop-filter: blur(10px);
@@ -152,13 +197,114 @@
             border: 1px solid rgba(79, 195, 247, 0.3);
             box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
             animation: fadeInUp 1s ease-out;
-            max-width: 900px;
-            margin: 0 auto 40px;
         }
 
-        /* Hide quiz by default */
-        #quizPage {
+        .question {
+            font-size: 1.4em;
+            margin-bottom: 30px;
+            line-height: 1.6;
+            color: #b3e5fc;
+        }
+
+        .options {
+            display: grid;
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        .option {
+            background: rgba(79, 195, 247, 0.1);
+            border: 2px solid rgba(79, 195, 247, 0.3);
+            border-radius: 12px;
+            padding: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1.1em;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .option:hover {
+            background: rgba(79, 195, 247, 0.2);
+            border-color: #4fc3f7;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(79, 195, 247, 0.3);
+        }
+
+        .option.correct {
+            background: rgba(76, 175, 80, 0.3);
+            border-color: #4caf50;
+            animation: correctAnim 0.6s ease;
+        }
+
+        .option.incorrect {
+            background: rgba(244, 67, 54, 0.3);
+            border-color: #f44336;
+            animation: incorrectAnim 0.6s ease;
+        }
+
+        .controls {
+            display: flex;
+            gap: 15px;
+            justify-content: space-between;
+            margin-top: 30px;
+            align-items: center;
+        }
+
+        .btn {
+            background: linear-gradient(45deg, #4fc3f7, #29b6f6);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 50px;
+            font-size: 1.1em;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(79, 195, 247, 0.4);
+            font-weight: bold;
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(79, 195, 247, 0.6);
+        }
+
+        .btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        #resultContainer {
             display: none;
+        }
+
+        .score {
+            text-align: center;
+            font-size: 1.5em;
+            margin: 20px 0;
+            color: #81d4fa;
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        .stat-card {
+            background: rgba(79, 195, 247, 0.1);
+            padding: 20px;
+            border-radius: 15px;
+            text-align: center;
+            border: 1px solid rgba(79, 195, 247, 0.3);
+        }
+
+        .stat-card h3 {
+            font-size: 2.5em;
+            color: #4fc3f7;
+            margin-bottom: 10px;
         }
 
         /* Animations */
@@ -178,11 +324,24 @@
             100% { box-shadow: 0 10px 30px rgba(79, 195, 247, 0.4); }
         }
 
+        @keyframes correctAnim {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        @keyframes incorrectAnim {
+            0% { transform: scale(1); }
+            50% { transform: scale(0.95); }
+            100% { transform: scale(1); }
+        }
+
         @media (max-width: 768px) {
             .home-header h1 { font-size: 2.5em; }
             .definition-section { padding: 30px 20px; }
             .examples-grid { grid-template-columns: 1fr; }
             .quiz-container { padding: 20px; margin: 20px; }
+            .controls { flex-direction: column; }
         }
     </style>
 </head>
@@ -238,7 +397,7 @@
             </div>
         </div>
 
-        <a href="#" class="quiz-btn" onclick="startQuiz()">🚀 Start Modal Verbs Quiz</a>
+        <button class="quiz-btn" onclick="startQuiz()">🚀 Start Modal Verbs Quiz</button>
     </div>
 
     <!-- Quiz Page -->
@@ -263,7 +422,7 @@
                 </div>
             </div>
 
-            <div id="resultContainer" style="display: none;">
+            <div id="resultContainer">
                 <div class="quiz-container">
                     <div class="score" id="finalScore"></div>
                     <div class="stats" id="stats"></div>
@@ -275,7 +434,7 @@
     </div>
 
     <script>
-        // Modal Verbs Questions
+        // Fixed Modal Verbs Questions (removed syntax error)
         const questions = [
             {question: "You _____ finish your homework before playing.", options: ["must", "can", "might", "would"], correct: 0, explanation: "Correct: 'must' (strong obligation)"},
             {question: "She _____ speak three languages fluently.", options: ["can", "should", "will", "may"], correct: 0, explanation: "Correct: 'can' (ability)"},
@@ -287,7 +446,7 @@
             {question: "_____ I open the window? It's hot here.", options: ["May", "Must", "Will", "Can"], correct: 0, explanation: "Correct: 'May' (polite permission)"},
             {question: "She _____ finished her work already.", options: ["might have", "must to", "can have", "should to"], correct: 0, explanation: "Correct: 'might have' (past possibility)"},
             {question: "We _____ leave now or we'll be late.", options: ["had better", "can", "might", "would"], correct: 0, explanation: "Correct: 'had better' (strong advice)"},
-            {question: "They _____ come to the party if invited.", options: ["would", "must", "can", "shall"], correct: 0, explanation: "Correct: 'would' (conditional)"},
+                        {question: "They _____ come to the party if invited.", options: ["would", "must", "can", "shall"], correct: 0, explanation: "Correct: 'would' (conditional)"},
             {question: "You _____ worry about the exam; you've studied well.", options: ["needn't", "must", "can", "will"], correct: 0, explanation: "Correct: 'needn't' (no obligation)"},
             {question: "_____ you like some tea?", options: ["Would", "Must", "Can", "Will"], correct: 0, explanation: "Correct: 'Would' (polite offer)"},
             {question: "I _____ swim when I was five years old.", options: ["could", "must", "should", "may"], correct: 0, explanation: "Correct: 'could' (past ability)"},
@@ -312,7 +471,6 @@
             {question: "We _____ obey the rules.", options: ["must", "can", "might", "would"], correct: 0, explanation: "Correct: 'must' (obligation)"},
             {question: "_____ I carry that for you?", options: ["Shall", "Must", "Can", "Will"], correct: 0, explanation: "Correct: 'Shall' (offer)"},
             {question: "He _____ work harder to pass the exam.", options: ["needs to", "can to", "might to", "would to"], correct: 0, explanation: "Correct: 'needs to' (necessity)"},
-                        0, explanation: "Correct: 'might' (possibility)"},
             {question: "You _____ tell anyone about this.", options: ["mustn't", "can", "should", "will"], correct: 0, explanation: "Correct: 'mustn't' (prohibition)"},
             {question: "I _____ drive a car when I was 16.", options: ["could", "must", "should", "may"], correct: 0, explanation: "Correct: 'could' (past ability)"},
             {question: "The movie _____ start at 8 PM.", options: ["should", "must", "can", "will"], correct: 0, explanation: "Correct: 'should' (schedule expectation)"}
@@ -329,13 +487,15 @@
             currentQuestion = 0;
             score = 0;
             answers = [];
+            document.getElementById('quizContainer').style.display = 'block';
+            document.getElementById('resultContainer').style.display = 'none';
             loadQuestion();
         }
 
         function goHome() {
             document.getElementById('quizPage').style.display = 'none';
             document.getElementById('homePage').style.display = 'flex';
-            // Reset quiz styles
+            // Reset quiz options
             document.querySelectorAll('.option').forEach(opt => {
                 opt.classList.remove('correct', 'incorrect');
                 opt.style.pointerEvents = 'auto';
@@ -374,7 +534,7 @@
                 }
             });
 
-            if (selected === questions[currentQuestion].correct) {
+            if (selected === questions[currentQuestion].correct && answers[currentQuestion] === undefined) {
                 score++;
             }
             answers[currentQuestion] = selected;
@@ -446,34 +606,6 @@
             document.getElementById('resultContainer').style.display = 'none';
             loadQuestion();
         }
-
-        // Add missing CSS for quiz
-        const style = document.createElement('style');
-        style.textContent = `
-            .progress-bar { background: rgba(79, 195, 247, 0.2); height: 10px; border-radius: 5px; margin-bottom: 30px; overflow: hidden; }
-            .progress { height: 100%; background: linear-gradient(90deg, #4fc3f7, #81d4fa); width: 0%; transition: width 0.5s ease; border-radius: 5px; box-shadow: 0 0 10px rgba(79, 195, 247, 0.5); }
-            .question { font-size: 1.4em; margin-bottom: 30px; line-height: 1.6; color: #b3e5fc; }
-            .options { display: grid; gap: 15px; margin-bottom: 30px; }
-            .option { background: rgba(79, 195, 247, 0.1); border: 2px solid rgba(79, 195, 247, 0.3); border-radius: 12px; padding: 20px; cursor: pointer; transition: all 0.3s ease; font-size: 1.1em; position: relative; overflow: hidden; }
-            .option:hover { background: rgba(79, 195, 247, 0.2); border-color: #4fc3f7; transform: translateY(-2px); box-shadow: 0 10px 25px rgba(79, 195, 247, 0.3); }
-            .option.correct { background: rgba(76, 175, 80, 0.3); border-color: #4caf50; animation: correctAnim 0.6s ease; }
-            .option.incorrect { background: rgba(244, 67, 54, 0.3); border-color: #f44336; animation: incorrectAnim 0.6s ease; }
-            .controls { display: flex; gap: 15px; justify-content: space-between; margin-top: 30px; align-items: center; }
-            .btn { background: linear-gradient(45deg, #4fc3f7, #29b6f6); color: white; border: none; padding: 15px 30px; border-radius: 50px; font-size: 1.1em; cursor: pointer; transition: all 0.3s ease; box-shadow: 0 5px 15px rgba(79, 195, 247, 0.4); font-weight: bold; }
-            .btn:hover { transform: translateY(-3px); box-shadow: 0 10px 25px rgba(79, 195, 247, 0.6); }
-            .btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
-            .score { text-align: center; font-size: 1.5em; margin: 20px 0; color: #81d4fa; }
-            .stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; margin-top: 30px; }
-            .stat-card { background: rgba(79, 195, 247, 0.1); padding: 20px; border-radius: 15px; text-align: center; border: 1px solid rgba(79, 195, 247, 0.3); }
-            .stat-card h3 { font-size: 2.5em; color: #4fc3f7; margin-bottom: 10px; }
-            @keyframes correctAnim { 0% { transform: scale(1); } 50% { transform: scale(1.05); } 100% { transform: scale(1); } }
-            @keyframes incorrectAnim { 0% { transform: scale(1); } 50% { transform: scale(0.95); } 100% { transform: scale(1); } }
-            .container { max-width: 900px; margin: 0 auto; padding: 20px; }
-            .header { text-align: center; margin-bottom: 40px; animation: slideDown 1s ease-out; }
-            .header h1 { font-size: 2.5em; background: linear-gradient(45deg, #4fc3f7, #81d4fa, #4fc3f7); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; margin-bottom: 10px; text-shadow: 0 0 20px rgba(79, 195, 247, 0.5); }
-        `;
-        document.head.appendChild(style);
     </script>
 </body>
 </html>
-             
