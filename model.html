@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modal Verbs Master - Learn & Test</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #0f0f23 0%, #1a1a2e 50%, #16213e 100%);
+            min-height: 100vh;
+            color: #4fc3f7;
+            overflow-x: hidden;
+        }
+
+        /* Homepage Styles */
+        .home-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            text-align: center;
+        }
+
+        .home-header {
+            animation: slideDown 1s ease-out;
+            margin-bottom: 40px;
+        }
+
+        .home-header h1 {
+            font-size: 3.5em;
+            background: linear-gradient(45deg, #4fc3f7, #81d4fa, #4fc3f7);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 15px;
+            text-shadow: 0 0 30px rgba(79, 195, 247, 0.5);
+        }
+
+        .home-header p {
+            font-size: 1.3em;
+            color: #b3e5fc;
+            margin-bottom: 20px;
+        }
+
+        .definition-section {
+            background: rgba(26, 26, 46, 0.8);
+            backdrop-filter: blur(15px);
+            border-radius: 25px;
+            padding: 50px;
+            border: 1px solid rgba(79, 195, 247, 0.3);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
+            margin: 40px 0;
+            animation: fadeInUp 1s ease-out 0.3s both;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .definition-title {
+            font-size: 2.2em;
+            margin-bottom: 25px;
+            color: #81d4fa;
+        }
+
+        .definition-text {
+            font-size: 1.2em;
+            line-height: 1.8;
+            color: #b3e5fc;
+            margin-bottom: 30px;
+        }
+
+        .examples-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin-top: 30px;
+        }
+
+        .example-card {
+            background: rgba(79, 195, 247, 0.1);
+            padding: 25px;
+            border-radius: 20px;
+            border: 1px solid rgba(79, 195, 247, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .example-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(79, 195, 247, 0.3);
+        }
+
+        .example-title {
+            font-size: 1.3em;
+            color: #4fc3f7;
+            margin-bottom: 15px;
+            font-weight: bold;
+        }
+
+        .example-list {
+            text-align: left;
+            color: #b3e5fc;
+        }
+
+        .example-list li {
+            margin-bottom: 8px;
+            padding: 8px 0;
+            font-size: 1.1em;
+        }
+
+        .example-list li strong {
+            color: #81d4fa;
+        }
+
+        .quiz-btn {
+            background: linear-gradient(45deg, #4fc3f7, #29b6f6);
+            color: white;
+            border: none;
+            padding: 20px 50px;
+            border-radius: 50px;
+            font-size: 1.4em;
+            cursor: pointer;
+            transition: all 0.4s ease;
+            box-shadow: 0 10px 30px rgba(79, 195, 247, 0.4);
+            font-weight: bold;
+            text-decoration: none;
+            display: inline-block;
+            margin-top: 40px;
+            animation: pulse 2s infinite;
+        }
+
+        .quiz-btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(79, 195, 247, 0.6);
+        }
+
+        /* Quiz Page Styles */
+        .quiz-container {
+            background: rgba(26, 26, 46, 0.8);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 40px;
+            border: 1px solid rgba(79, 195, 247, 0.3);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+            animation: fadeInUp 1s ease-out;
+            max-width: 900px;
+            margin: 0 auto 40px;
+        }
+
+        /* Hide quiz by default */
+        #quizPage {
+            display: none;
+        }
+
+        /* Animations */
+        @keyframes slideDown {
+            from { transform: translateY(-50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        @keyframes fadeInUp {
+            from { transform: translateY(30px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        @keyframes pulse {
+            0% { box-shadow: 0 10px 30px rgba(79, 195, 247, 0.4); }
+            50% { box-shadow: 0 10px 30px rgba(79, 195, 247, 0.7); }
+            100% { box-shadow: 0 10px 30px rgba(79, 195, 247, 0.4); }
+        }
+
+        @media (max-width: 768px) {
+            .home-header h1 { font-size: 2.5em; }
+            .definition-section { padding: 30px 20px; }
+            .examples-grid { grid-template-columns: 1fr; }
+            .quiz-container { padding: 20px; margin: 20px; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Homepage -->
+    <div id="homePage" class="home-container">
+        <div class="home-header">
+            <h1>🎯 Modal Verbs Master</h1>
+            <p>Master Modal Verbs | Level Up Your English!</p>
+        </div>
+
+        <div class="definition-section">
+            <h2 class="definition-title">📚 What are Modal Verbs?</h2>
+            <p class="definition-text">
+                Modal verbs express <strong>ability, permission, obligation, possibility, probability</strong>, and more. 
+                They are <strong>auxiliary verbs</strong> that modify the main verb.
+            </p>
+            <p class="definition-text">
+                <strong>Key Rules:</strong> Modal + base verb (no "to"), no -s/-ed/-ing forms.
+            </p>
+
+            <div class="examples-grid">
+                <div class="example-card">
+                    <div class="example-title">✅ Ability & Permission</div>
+                    <ul class="example-list">
+                        <li><strong>can</strong> swim</li>
+                        <li><strong>could</strong> help</li>
+                        <li><strong>may</strong> leave</li>
+                        <li><strong>might</strong> come</li>
+                        <li><strong>shall</strong> begin</li>
+                    </ul>
+                </div>
+                <div class="example-card">
+                    <div class="example-title">⚖️ Obligation & Advice</div>
+                    <ul class="example-list">
+                        <li><strong>must</strong> study</li>
+                        <li><strong>should</strong> call</li>
+                        <li><strong>ought to</strong> apologize</li>
+                        <li><strong>need to</strong> finish</li>
+                        <li><strong>have to</strong> attend</li>
+                    </ul>
+                </div>
+                <div class="example-card">
+                    <div class="example-title">🎲 Possibility & Probability</div>
+                    <ul class="example-list">
+                        <li><strong>will</strong> rain</li>
+                        <li><strong>would</strong> help</li>
+                        <li><strong>may</strong> work</li>
+                        <li><strong>might</strong> fail</li>
+                        <li><strong>could</strong> happen</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <a href="#" class="quiz-btn" onclick="startQuiz()">🚀 Start Modal Verbs Quiz</a>
+    </div>
+
+    <!-- Quiz Page -->
+    <div id="quizPage">
+        <div class="container">
+            <div class="header">
+                <h1>🎯 Modal Verbs Quiz</h1>
+                <p>Test Your Modal Verb Knowledge!</p>
+            </div>
+
+            <div class="progress-bar">
+                <div class="progress" id="progress"></div>
+            </div>
+
+            <div class="quiz-container" id="quizContainer">
+                <div class="question" id="question"></div>
+                <div class="options" id="options"></div>
+                <div class="controls">
+                    <button class="btn" id="prevBtn" onclick="previousQuestion()">← Previous</button>
+                    <button class="btn" id="nextBtn" onclick="nextQuestion()">Next →</button>
+                    <button class="btn" id="submitBtn" onclick="submitQuiz()" style="display: none;">Submit Quiz</button>
+                </div>
+            </div>
+
+            <div id="resultContainer" style="display: none;">
+                <div class="quiz-container">
+                    <div class="score" id="finalScore"></div>
+                    <div class="stats" id="stats"></div>
+                    <button class="btn" onclick="restartQuiz()" style="width: 100%; margin-top: 20px;">🔄 Restart Quiz</button>
+                    <button class="btn" onclick="goHome()" style="width: 100%; margin-top: 20px;">🏠 Back to Home</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Modal Verbs Questions
+        const questions = [
+            {question: "You _____ finish your homework before playing.", options: ["must", "can", "might", "would"], correct: 0, explanation: "Correct: 'must' (strong obligation)"},
+            {question: "She _____ speak three languages fluently.", options: ["can", "should", "will", "may"], correct: 0, explanation: "Correct: 'can' (ability)"},
+            {question: "We _____ go to the meeting if you're busy.", options: ["might", "must", "shall", "need"], correct: 0, explanation: "Correct: 'might' (possibility)"},
+            {question: "You _____ smoke in the hospital.", options: ["mustn't", "can", "should", "will"], correct: 0, explanation: "Correct: 'mustn't' (prohibition)"},
+            {question: "I _____ help you with your project tomorrow.", options: ["will", "can", "should", "might"], correct: 0, explanation: "Correct: 'will' (future promise)"},
+            {question: "He _____ be at home now; it's his day off.", options: ["might", "must", "can", "shall"], correct: 1, explanation: "Correct: 'must' (logical deduction)"},
+            {question: "You _____ call your parents more often.", options: ["should", "can", "will", "may"], correct: 0, explanation: "Correct: 'should' (advice)"},
+            {question: "_____ I open the window? It's hot here.", options: ["May", "Must", "Will", "Can"], correct: 0, explanation: "Correct: 'May' (polite permission)"},
+            {question: "She _____ finished her work already.", options: ["might have", "must to", "can have", "should to"], correct: 0, explanation: "Correct: 'might have' (past possibility)"},
+            {question: "We _____ leave now or we'll be late.", options: ["had better", "can", "might", "would"], correct: 0, explanation: "Correct: 'had better' (strong advice)"},
+            {question: "They _____ come to the party if invited.", options: ["would", "must", "can", "shall"], correct: 0, explanation: "Correct: 'would' (conditional)"},
+            {question: "You _____ worry about the exam; you've studied well.", options: ["needn't", "must", "can", "will"], correct: 0, explanation: "Correct: 'needn't' (no obligation)"},
+            {question: "_____ you like some tea?", options: ["Would", "Must", "Can", "Will"], correct: 0, explanation: "Correct: 'Would' (polite offer)"},
+            {question: "I _____ swim when I was five years old.", options: ["could", "must", "should", "may"], correct: 0, explanation: "Correct: 'could' (past ability)"},
+            {question: "It's raining, so she _____ go out today.", options: ["might not", "must not", "can not", "should not"], correct: 0, explanation: "Correct: 'might not' (possibility)"},
+            {question: "We _____ finish this project by tomorrow.", options: ["have to", "can", "might", "would"], correct: 0, explanation: "Correct: 'have to' (external obligation)"},
+            {question: "He _____ be joking; that can't be true!", options: ["must", "can", "should", "will"], correct: 0, explanation: "Correct: 'must' (strong deduction)"},
+            {question: "You _____ apologize for your mistake.", options: ["ought to", "can", "might", "would"], correct: 0, explanation: "Correct: 'ought to' (moral obligation)"},
+            {question: "The train _____ arrive any minute now.", options: ["should", "must", "can", "will"], correct: 0, explanation: "Correct: 'should' (expectation)"},
+            {question: "I _____ run faster when I was younger.", options: ["could", "must", "should", "may"], correct: 0, explanation: "Correct: 'could' (past ability)"},
+            {question: "_____ you pass the salt, please?", options: ["Could", "Must", "Will", "May"], correct: 0, explanation: "Correct: 'Could' (polite request)"},
+            {question: "She _____ be tired after such a long journey.", options: ["must", "can", "might", "should"], correct: 0, explanation: "Correct: 'must' (logical conclusion)"},
+            {question: "We _____ have called earlier; I'm sorry.", options: ["should", "can", "will", "may"], correct: 0, explanation: "Correct: 'should' (past advice/regret)"},
+            {question: "You _____ touch that; it's dangerous!", options: ["mustn't", "can", "might", "would"], correct: 0, explanation: "Correct: 'mustn't' (prohibition)"},
+            {question: "I _____ believe what I'm hearing!", options: ["can't", "mustn't", "shouldn't", "won't"], correct: 0, explanation: "Correct: 'can't' (impossibility)"},
+            {question: "They _____ finished the report by now.", options: ["should have", "must have to", "can have", "will have"], correct: 0, explanation: "Correct: 'should have' (past expectation)"},
+            {question: "_____ we start the meeting without him?", options: ["Shall", "Must", "Can", "Will"], correct: 0, explanation: "Correct: 'Shall' (suggestion)"},
+            {question: "He _____ play the piano beautifully.", options: ["can", "must", "should", "might"], correct: 0, explanation: "Correct: 'can' (ability)"},
+            {question: "You _____ be more careful next time.", options: ["should", "can", "will", "may"], correct: 0, explanation: "Correct: 'should' (advice)"},
+            {question: "The children _____ be sleeping by now.", options: ["should", "must", "can", "will"], correct: 0, explanation: "Correct: 'should' (expectation)"},
+            {question: "I _____ help you if you need me.", options: ["will", "can", "should", "might"], correct: 0, explanation: "Correct: 'will' (promise)"},
+            {question: "She _____ have forgotten about the appointment.", options: ["might", "must", "can", "should"], correct: 0, explanation: "Correct: 'might' (past possibility)"},
+            {question: "We _____ obey the rules.", options: ["must", "can", "might", "would"], correct: 0, explanation: "Correct: 'must' (obligation)"},
+            {question: "_____ I carry that for you?", options: ["Shall", "Must", "Can", "Will"], correct: 0, explanation: "Correct: 'Shall' (offer)"},
+            {question: "He _____ work harder to pass the exam.", options: ["needs to", "can to", "might to", "would to"], correct: 0, explanation: "Correct: 'needs to' (necessity)"},
+                        0, explanation: "Correct: 'might' (possibility)"},
+            {question: "You _____ tell anyone about this.", options: ["mustn't", "can", "should", "will"], correct: 0, explanation: "Correct: 'mustn't' (prohibition)"},
+            {question: "I _____ drive a car when I was 16.", options: ["could", "must", "should", "may"], correct: 0, explanation: "Correct: 'could' (past ability)"},
+            {question: "The movie _____ start at 8 PM.", options: ["should", "must", "can", "will"], correct: 0, explanation: "Correct: 'should' (schedule expectation)"}
+        ];
+
+        let currentQuestion = 0;
+        let score = 0;
+        let answers = [];
+
+        // Navigation functions
+        function startQuiz() {
+            document.getElementById('homePage').style.display = 'none';
+            document.getElementById('quizPage').style.display = 'block';
+            currentQuestion = 0;
+            score = 0;
+            answers = [];
+            loadQuestion();
+        }
+
+        function goHome() {
+            document.getElementById('quizPage').style.display = 'none';
+            document.getElementById('homePage').style.display = 'flex';
+            // Reset quiz styles
+            document.querySelectorAll('.option').forEach(opt => {
+                opt.classList.remove('correct', 'incorrect');
+                opt.style.pointerEvents = 'auto';
+            });
+        }
+
+        // Quiz functions
+        function loadQuestion() {
+            const q = questions[currentQuestion];
+            document.getElementById('question').innerHTML = 
+                `<strong>Q${currentQuestion + 1}:</strong> ${q.question}`;
+            
+            const optionsDiv = document.getElementById('options');
+            optionsDiv.innerHTML = '';
+            
+            q.options.forEach((option, index) => {
+                const optionDiv = document.createElement('div');
+                optionDiv.className = 'option';
+                optionDiv.innerHTML = `<strong>${String.fromCharCode(65 + index)}.</strong> ${option}`;
+                optionDiv.onclick = () => selectOption(index);
+                optionsDiv.appendChild(optionDiv);
+            });
+
+            updateProgress();
+            updateButtons();
+        }
+
+        function selectOption(selected) {
+            const options = document.querySelectorAll('.option');
+            options.forEach((opt, index) => {
+                opt.style.pointerEvents = 'none';
+                if (index === questions[currentQuestion].correct) {
+                    opt.classList.add('correct');
+                } else if (index === selected && index !== questions[currentQuestion].correct) {
+                    opt.classList.add('incorrect');
+                }
+            });
+
+            if (selected === questions[currentQuestion].correct) {
+                score++;
+            }
+            answers[currentQuestion] = selected;
+        }
+
+        function nextQuestion() {
+            currentQuestion++;
+            if (currentQuestion < questions.length) {
+                loadQuestion();
+            } else {
+                showResults();
+            }
+        }
+
+        function previousQuestion() {
+            if (currentQuestion > 0) {
+                currentQuestion--;
+                loadQuestion();
+            }
+        }
+
+        function updateProgress() {
+            const progress = ((currentQuestion + 1) / questions.length) * 100;
+            document.getElementById('progress').style.width = progress + '%';
+        }
+
+        function updateButtons() {
+            document.getElementById('prevBtn').style.display = currentQuestion === 0 ? 'none' : 'inline-block';
+            document.getElementById('nextBtn').style.display = 
+                currentQuestion === questions.length - 1 ? 'none' : 'inline-block';
+            document.getElementById('submitBtn').style.display = 
+                currentQuestion === questions.length - 1 ? 'inline-block' : 'none';
+        }
+
+        function submitQuiz() {
+            showResults();
+        }
+
+        function showResults() {
+            document.getElementById('quizContainer').style.display = 'none';
+            document.getElementById('resultContainer').style.display = 'block';
+            
+            const percentage = Math.round((score / questions.length) * 100);
+            document.getElementById('finalScore').innerHTML = 
+                `🎉 Your Score: ${score}/${questions.length} (${percentage}%)`;
+            
+            const statsDiv = document.getElementById('stats');
+            statsDiv.innerHTML = `
+                <div class="stat-card">
+                    <h3>${score}</h3>
+                    <p>Correct</p>
+                </div>
+                <div class="stat-card">
+                    <h3>${questions.length - score}</h3>
+                    <p>Incorrect</p>
+                </div>
+                <div class="stat-card">
+                    <h3>${percentage}%</h3>
+                    <p>Accuracy</p>
+                </div>
+            `;
+        }
+
+        function restartQuiz() {
+            currentQuestion = 0;
+            score = 0;
+            answers = [];
+            document.getElementById('quizContainer').style.display = 'block';
+            document.getElementById('resultContainer').style.display = 'none';
+            loadQuestion();
+        }
+
+        // Add missing CSS for quiz
+        const style = document.createElement('style');
+        style.textContent = `
+            .progress-bar { background: rgba(79, 195, 247, 0.2); height: 10px; border-radius: 5px; margin-bottom: 30px; overflow: hidden; }
+            .progress { height: 100%; background: linear-gradient(90deg, #4fc3f7, #81d4fa); width: 0%; transition: width 0.5s ease; border-radius: 5px; box-shadow: 0 0 10px rgba(79, 195, 247, 0.5); }
+            .question { font-size: 1.4em; margin-bottom: 30px; line-height: 1.6; color: #b3e5fc; }
+            .options { display: grid; gap: 15px; margin-bottom: 30px; }
+            .option { background: rgba(79, 195, 247, 0.1); border: 2px solid rgba(79, 195, 247, 0.3); border-radius: 12px; padding: 20px; cursor: pointer; transition: all 0.3s ease; font-size: 1.1em; position: relative; overflow: hidden; }
+            .option:hover { background: rgba(79, 195, 247, 0.2); border-color: #4fc3f7; transform: translateY(-2px); box-shadow: 0 10px 25px rgba(79, 195, 247, 0.3); }
+            .option.correct { background: rgba(76, 175, 80, 0.3); border-color: #4caf50; animation: correctAnim 0.6s ease; }
+            .option.incorrect { background: rgba(244, 67, 54, 0.3); border-color: #f44336; animation: incorrectAnim 0.6s ease; }
+            .controls { display: flex; gap: 15px; justify-content: space-between; margin-top: 30px; align-items: center; }
+            .btn { background: linear-gradient(45deg, #4fc3f7, #29b6f6); color: white; border: none; padding: 15px 30px; border-radius: 50px; font-size: 1.1em; cursor: pointer; transition: all 0.3s ease; box-shadow: 0 5px 15px rgba(79, 195, 247, 0.4); font-weight: bold; }
+            .btn:hover { transform: translateY(-3px); box-shadow: 0 10px 25px rgba(79, 195, 247, 0.6); }
+            .btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+            .score { text-align: center; font-size: 1.5em; margin: 20px 0; color: #81d4fa; }
+            .stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; margin-top: 30px; }
+            .stat-card { background: rgba(79, 195, 247, 0.1); padding: 20px; border-radius: 15px; text-align: center; border: 1px solid rgba(79, 195, 247, 0.3); }
+            .stat-card h3 { font-size: 2.5em; color: #4fc3f7; margin-bottom: 10px; }
+            @keyframes correctAnim { 0% { transform: scale(1); } 50% { transform: scale(1.05); } 100% { transform: scale(1); } }
+            @keyframes incorrectAnim { 0% { transform: scale(1); } 50% { transform: scale(0.95); } 100% { transform: scale(1); } }
+            .container { max-width: 900px; margin: 0 auto; padding: 20px; }
+            .header { text-align: center; margin-bottom: 40px; animation: slideDown 1s ease-out; }
+            .header h1 { font-size: 2.5em; background: linear-gradient(45deg, #4fc3f7, #81d4fa, #4fc3f7); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; margin-bottom: 10px; text-shadow: 0 0 20px rgba(79, 195, 247, 0.5); }
+        `;
+        document.head.appendChild(style);
+    </script>
+</body>
+</html>
+             
