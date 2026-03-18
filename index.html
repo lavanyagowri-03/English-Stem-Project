@@ -143,32 +143,21 @@
         }
 
         /* Topics Section */
-        .topics-section {
-            padding: 120px 0;
-        }
-
-        .section-title {
-            text-align: center;
-            font-size: clamp(2.5rem, 5vw, 3.5rem);
-            font-weight: 800;
-            color: #f1f5f9;
-            margin-bottom: 4rem;
-            background: linear-gradient(135deg, #3b82f6, #1d4ed8);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
         
+        .topics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+
         .topic-card {
-            background:rgba(15, 23, 42, 0.8);;
-            backdrop-filter: blur(20px);
-            border-radius: 24px;
-            padding: 2.5rem;
-            text-align: center;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            border: 1px solid rgba(255, 255, 255, 0.2);
+            background: #0f0f23;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            cursor: pointer;
             position: relative;
             overflow: hidden;
         }
@@ -179,70 +168,33 @@
             top: 0;
             left: 0;
             right: 0;
-            height: 4px;
-            background:rgba(124, 155, 226, 0.8);
-            background-size: 300% 300%;
-            animation: gradientShift 3s ease infinite;
-        }
-
-        .topic-card::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: linear-gradient(135deg, rgba(59, 130, 246, 0.1), transparent);
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
-
-        .topic-card:hover::after {
-            opacity: 1;
+            height: 5px;
+            background: linear-gradient(90deg, #ff6b6b, #4ecdc4, #45b7d1, #f9ca24);
         }
 
         .topic-card:hover {
-            transform: translateY(-15px) scale(1.02);
-            box-shadow: 0 35px 80px rgba(59, 130, 246, 0.3);
-            border-color: rgba(59, 130, 246, 0.6);
+            transform: translateY(-10px);
+            box-shadow: 0 25px 50px rgba(0,0,0,0.2);
         }
 
         .topic-icon {
-            font-size: 3.5rem;
-            margin-bottom: 1.5rem;
+            font-size: 3rem;
+            margin-bottom: 15px;
             display: block;
         }
 
-        .topic-card h3 {
-            font-size: 1.6rem;
-            font-weight: 700;
-            color: rgba(124, 155, 226, 0.8);
-            margin-bottom: 1rem;
+        .topic-title {
+            font-size: 1.8rem;
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #333;
         }
 
-        .topic-card p {
-            color: #64748b;
-            margin-bottom: 2rem;
-            line-height: 1.7;
+        .topic-description {
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 25px;
         }
-
-        .topic-btn {
-            background: rgba(124, 155, 226, 0.8);
-            color: white;
-            padding: 14px 30px;
-            border-radius: 50px;
-            text-decoration: none;
-            font-weight: 600;
-            display: inline-block;
-            transition: all 0.3s ease;
-            box-shadow: rgba(15, 23, 42, 0.8);;
-        }
-
-        .topic-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: rgba(15, 23, 42, 0.8);;
-        }
-
         /* Features Section */
         .features {
             background: rgba(15, 23, 42, 0.8);
@@ -371,7 +323,7 @@
                     <i class="fas fa-clock topic-icon"></i>
                     <h3>English Tenses</h3>
                     <p>Comprehensive coverage of all 12 English tenses with detailed explanations, usage rules, timelines, and hundreds of practice exercises.</p>
-                    <a href="tenses.html" class="topic-btn">Start Tenses Quiz</a>
+                    <button class="topic-btn" onclick="window.location.href='tenses.html'">Start Tenses Quiz</button>
                 </div>
 
                 <!-- Prepositions -->
@@ -379,7 +331,7 @@
                     <i class="fas fa-link topic-icon"></i>
                     <h3>Prepositions</h3>
                     <p>Master preposition usage with visual aids, common phrases, and contextual examples across different sentence structures.</p>
-                    <a href="preposition.html" class="topic-btn">Start Prepositions Quiz</a>
+                    <button class="topic-btn" onclick="window.location.href='preposition.html'">Start Prepositions Quiz</button>
                 </div>
 
                 <!-- Modals -->
@@ -387,7 +339,7 @@
                     <i class="fas fa-magic topic-icon"></i>
                     <h3>Modal Verbs</h3>
                     <p>Deep dive into modal verbs (can, could, must, should, might) with nuanced meanings, patterns, and advanced usage scenarios.</p>
-                    <a href="modals.html" class="topic-btn">Start Modals Quiz</a>
+                    <button class="topic-btn" onclick="window.location.href='general.html'">Start Modals Quiz</button>
                 </div>
 
                 <!-- Direct & Indirect Speech -->
@@ -395,7 +347,7 @@
                     <i class="fas fa-quote-left topic-icon"></i>
                     <h3>Direct & Indirect Speech</h3>
                     <p>Perfect tense conversions, reporting verbs, and punctuation rules for transforming direct speech into indirect speech.</p>
-                    <a href="speech.html" class="topic-btn">Start Speech Quiz</a>
+                    <button class="topic-btn" onclick="window.location.href='speech.html'">Start Speech Quiz</button>
                 </div>
 
                 <!-- Active & Passive Voice -->
@@ -403,7 +355,7 @@
                     <i class="fas fa-exchange-alt topic-icon"></i>
                     <h3>Active & Passive Voice</h3>
                     <p>Complete transformation guide across all tenses with form recognition, usage contexts, and practice exercises.</p>
-                    <a href="voices.html" class="topic-btn">Start Voice Quiz</a>
+                    <button class="topic-btn" onclick="window.location.href='voices.html'">Start Voice Quiz</button>
                 </div>
 
                 <!-- Degrees of Comparison -->
@@ -411,7 +363,7 @@
                     <i class="fas fa-chart-line topic-icon"></i>
                     <h3>Degrees of Comparison</h3>
                     <p>Adjective and adverb comparison rules, irregular forms, and advanced comparative structures with real examples.</p>
-                    <a href="degreesofcomparision.html" class="topic-btn">Start Comparison Quiz</a>
+                    <button class="topic-btn" onclick="window.location.href='degreesofcomparision.html'">Start Comparison Quiz</button>
                 </div>
 
                                <!-- Sentence Patterns -->
@@ -419,7 +371,7 @@
                     <i class="fas fa-th topic-icon"></i>
                     <h3>Sentence Patterns</h3>
                     <p>Fundamental English sentence structures, clause combinations, and professional writing patterns for clear communication.</p>
-                    <a href="patterns.html" class="topic-btn">Start Patterns Quiz</a>
+                    <button class="topic-btn" onclick="window.location.href='sent.html'">Start Patterns Quiz</button>
                 </div>
 
                 <!-- Articles -->
@@ -427,7 +379,7 @@
                     <i class="fas fa-newspaper topic-icon"></i>
                     <h3>Articles</h3>
                     <p>Master definite (the) and indefinite (a, an) articles with usage rules, exceptions, and contextual practice exercises.</p>
-                    <a href="articles.html" class="topic-btn">Start Articles Quiz</a>
+                    <button class="topic-btn" onclick="window.location.href='general.html'">Start Articles Quiz</button>
                 </div>
 
                 <!-- Conditionals -->
@@ -435,7 +387,7 @@
                     <i class="fas fa-question-circle topic-icon"></i>
                     <h3>Conditionals</h3>
                     <p>Zero, First, Second, Third, and Mixed Conditionals with real-life scenarios and advanced conditional structures.</p>
-                    <a href="conditionals.html" class="topic-btn">Start Conditionals Quiz</a>
+                    <button class="topic-btn" onclick="window.location.href='test.html'">Start Conditionals Quiz</button>
                 </div>
             </div>
         </section>
