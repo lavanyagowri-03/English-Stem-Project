@@ -1,16 +1,16 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Reported Voice Quiz</title>
+<title>Active & Passive Voice Quiz</title>
 <style>
-body {margin:0;font-family:Arial;background:linear-gradient(120deg,#667eea,#764ba2);}
+body {margin:0;font-family:Arial;background:linear-gradient(120deg,#ff9a9e,#fad0c4);}
 .container {display:flex;height:100vh;}
 .left {width:65%;padding:30px;}
 .right {width:35%;background:white;padding:20px;overflow-y:auto;}
 .quiz-box {background:white;padding:25px;border-radius:15px;box-shadow:0 0 20px rgba(0,0,0,0.3);}
 button {padding:10px 15px;margin:5px;border:none;border-radius:8px;cursor:pointer;}
-.option-btn {background:#6c5ce7;color:white;}
-.option-btn:hover {background:#4834d4;}
+.option-btn {background:#e84393;color:white;}
+.option-btn:hover {background:#d63031;}
 .nav-btn {background:#00b894;color:white;}
 .correct {color:green;}
 .wrong {color:red;}
@@ -23,7 +23,7 @@ button {padding:10px 15px;margin:5px;border:none;border-radius:8px;cursor:pointe
 
 <div class="left">
 <div class="quiz-box">
-<h2>📘 Reported Voice Quiz</h2>
+<h2>📘 Active & Passive Voice Quiz</h2>
 <div id="questionBox"></div>
 <div id="feedback"></div>
 
@@ -44,34 +44,87 @@ button {padding:10px 15px;margin:5px;border:none;border-radius:8px;cursor:pointe
 <script>
 
 const questions = [
-{"question": 'He said, "I am happy."', "options": ["He said that he was happy.", "He said that he is happy."], "answer": 0},
-{"question": 'She said, "I have lost my keys."', "options": ["She said that she had lost her keys.", "She said that she has lost her keys."], "answer": 0},
-{"question": 'They said, "We are going home."', "options": ["They said that they were going home.", "They said that they are going home."], "answer": 0},
-{"question": 'He said, "I will help you."', "options": ["He said that he would help me.", "He said that he will help you."], "answer": 0},
-{"question": 'She said, "I can swim."', "options": ["She said that she could swim.", "She said that she can swim."], "answer": 0},
-{"question": 'John said, "I went to school."', "options": ["John said that he had gone to school.", "John said that he has gone to school."], "answer": 0},
-{"question": 'The teacher said, "Water boils at 100°C."', "options": ["The teacher said that water boiled at 100°C.", "The teacher said that water boils at 100°C."], "answer": 1},
-{"question": 'She said, "I am studying."', "options": ["She said that she was studying.", "She said that she is studying."], "answer": 0},
-{"question": 'He said, "We have completed the work."', "options": ["He said that they had completed the work.", "He said that they have completed the work."], "answer": 0},
-{"question": 'She said, "I was tired."', "options": ["She said that she had been tired.", "She said that she was tired."], "answer": 1},
 
-{"question": 'He said, "I am learning Python programming."', "options": ["He said that he was learning Python programming.", "He said that he is learning Python programming."], "answer": 0},
-{"question": 'She said, "I finished my assignment yesterday."', "options": ["She said that she had finished her assignment the previous day.", "She said that she finished her assignment yesterday."], "answer": 0},
-{"question": 'They said, "We will submit the project tomorrow."', "options": ["They said that they would submit the project the next day.", "They said that they will submit the project tomorrow."], "answer": 0},
-{"question": 'He said, "I can solve this coding problem easily."', "options": ["He said that he could solve that coding problem easily.", "He said that he can solve this coding problem easily."], "answer": 0},
-{"question": 'She said, "I am reading a novel."', "options": ["She said that she was reading a novel.", "She said that she is reading a novel."], "answer": 0},
+{"question": "Ram writes a letter.",
+ "options": ["A letter is written by Ram.", "A letter was written by Ram."],
+ "answer": 0},
 
-{"question": 'He said, "I have completed my homework."', "options": ["He said that he had completed his homework.", "He said that he has completed his homework."], "answer": 0},
-{"question": 'They said, "We will attend the meeting."', "options": ["They said that they would attend the meeting.", "They said that they will attend the meeting."], "answer": 0},
-{"question": 'She said, "I can drive a car."', "options": ["She said that she could drive a car.", "She said that she can drive a car."], "answer": 0},
-{"question": 'He said, "I was playing cricket."', "options": ["He said that he had been playing cricket.", "He said that he was playing cricket."], "answer": 1},
-{"question": 'She said, "I may buy a dress."', "options": ["She said that she might buy a dress.", "She said that she may buy a dress."], "answer": 0},
+{"question": "She is singing a song.",
+ "options": ["A song is being sung by her.", "A song was being sung by her."],
+ "answer": 0},
 
-{"question": 'They said, "We are watching TV."', "options": ["They said that they were watching TV.", "They said that they are watching TV."], "answer": 0},
-{"question": 'He said, "I must finish this work."', "options": ["He said that he had to finish that work.", "He said that he must finish this work."], "answer": 0},
-{"question": 'She said, "I have been waiting for you."', "options": ["She said that she had been waiting for me.", "She said that she has been waiting for you."], "answer": 0},
-{"question": 'He said, "I will travel tomorrow."', "options": ["He said that he would travel the next day.", "He said that he will travel tomorrow."], "answer": 0},
-{"question": 'She said, "I do not understand this lesson."', "options": ["She said that she did not understand that lesson.", "She said that she does not understand this lesson."], "answer": 0}
+{"question": "They completed the project.",
+ "options": ["The project was completed by them.", "The project is completed by them."],
+ "answer": 0},
+
+{"question": "He will finish the work.",
+ "options": ["The work will be finished by him.", "The work is finished by him."],
+ "answer": 0},
+
+{"question": "The teacher teaches English.",
+ "options": ["English is taught by the teacher.", "English was taught by the teacher."],
+ "answer": 0},
+
+{"question": "She has cleaned the room.",
+ "options": ["The room has been cleaned by her.", "The room was cleaned by her."],
+ "answer": 0},
+
+{"question": "They are watching a movie.",
+ "options": ["A movie is being watched by them.", "A movie was watched by them."],
+ "answer": 0},
+
+{"question": "The chef cooked the meal.",
+ "options": ["The meal was cooked by the chef.", "The meal is cooked by the chef."],
+ "answer": 0},
+
+{"question": "He can solve the problem.",
+ "options": ["The problem can be solved by him.", "The problem was solved by him."],
+ "answer": 0},
+
+{"question": "The company launched a new product.",
+ "options": ["A new product was launched by the company.", "A new product is launched by the company."],
+ "answer": 0},
+
+{"question": "She was reading a book.",
+ "options": ["A book was being read by her.", "A book is being read by her."],
+ "answer": 0},
+
+{"question": "They will organize the event.",
+ "options": ["The event will be organized by them.", "The event was organized by them."],
+ "answer": 0},
+
+{"question": "The police arrested the thief.",
+ "options": ["The thief was arrested by the police.", "The thief is arrested by the police."],
+ "answer": 0},
+
+{"question": "He is repairing the car.",
+ "options": ["The car is being repaired by him.", "The car was repaired by him."],
+ "answer": 0},
+
+{"question": "She wrote a poem.",
+ "options": ["A poem was written by her.", "A poem is written by her."],
+ "answer": 0},
+
+{"question": "They have finished the homework.",
+ "options": ["The homework has been finished by them.", "The homework was finished by them."],
+ "answer": 0},
+
+{"question": "The manager approved the plan.",
+ "options": ["The plan was approved by the manager.", "The plan is approved by the manager."],
+ "answer": 0},
+
+{"question": "He is delivering the parcel.",
+ "options": ["The parcel is being delivered by him.", "The parcel was delivered by him."],
+ "answer": 0},
+
+{"question": "She will buy a car.",
+ "options": ["A car will be bought by her.", "A car was bought by her."],
+ "answer": 0},
+
+{"question": "They built a bridge.",
+ "options": ["A bridge was built by them.", "A bridge is built by them."],
+ "answer": 0}
+
 ];
 
 let current = 0;
